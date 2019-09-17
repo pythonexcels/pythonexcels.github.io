@@ -3,12 +3,15 @@ layout: post
 title:  What is Python Excels?
 date:   2009-07-03
 categories: python
+excerpt_separator: <!--end_excerpt-->
 ---
 
 It’s time to give back. And get back. I’ll be sharing some ideas from the Python
 programs I’ve written, and talk about what problems were solved. I like to share
 work that is as complete as possible, so in most cases you should be able to
 download the script and try it right away for yourself.
+
+<!--end_excerpt-->
 
 I’ve been Googling your blogs, your wikis, your stackoverflows for years.
 Grabbing a program here, a snippet there, and using it to build my scripts that
