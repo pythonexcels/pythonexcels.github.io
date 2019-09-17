@@ -3,8 +3,8 @@ layout: post
 title:  Another XLWT Example
 date:   2009-09-19
 categories: python
+excerpt_separator: <!--end_excerpt-->
 ---
-
 
 After completing the [last
 example](./2009_09_10_Using_XLWT_to_Write_Spreadsheets_Without_Excel.html), I
@@ -12,6 +12,8 @@ wanted to try something a little more interesting with XLWT this time around.
 This article describes a short script that uses Python and XLWT to download some
 raw data from the web, parse it, and write a spreadsheet with a new column
 derived from the data.
+
+<!--end_excerpt-->
 
 The data for this example comes from research done by David Harrison and Daniel
 L. Rubinfeld in “Hedonic Housing Prices and the Demand for Clean Air”, published

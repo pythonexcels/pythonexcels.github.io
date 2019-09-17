@@ -3,12 +3,14 @@ layout: post
 title:  Python Excel Mini Cookbook
 date:   2009-10-05
 categories: python
+excerpt_separator: <!--end_excerpt-->
 ---
-
 
 To get you started, I’ve illustrated a number of common tasks you can do with
 Python and Excel. Each program below is a self contained example, just copy it,
 paste it and run it.
+
+<!--end_excerpt-->
 
 A few things to note:
 

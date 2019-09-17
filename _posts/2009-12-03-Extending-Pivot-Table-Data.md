@@ -3,12 +3,15 @@ layout: post
 title:  Extending Pivot Table Data
 date:   2009-12-03
 categories: python
+excerpt_separator: <!--end_excerpt-->
 ---
 
 Python and Excel can help you quickly clean up a spreadsheet, organize data and
 build useful reports in very few lines of code. Another useful data preparation
 technique is to build new columns of information based on the available data, as
 shown in this post.
+
+<!--end_excerpt-->
 
 For example, you could add an industry segment column to group company names by
 industry, or add an item type column to group sales items by category. While

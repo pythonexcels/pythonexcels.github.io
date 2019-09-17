@@ -3,6 +3,7 @@ layout: post
 title:  Introducing Pivot Tables
 date:   2009-11-11
 categories: python
+excerpt_separator: <!--end_excerpt-->
 ---
 
 In my professional life, I’ve found few people who have a solid knowledge of
@@ -11,6 +12,8 @@ of pivot tables or haven’t had the time to try out this function in Excel, piv
 tables provide a way to cross tabulate, sort, segregate and aggregate tabular
 data, enabling you to quickly summarize data and extract totals, averages, and
 other information from the source data.
+
+<!--end_excerpt-->
 
 I first found out about pivot tables when I was working with our business unit
 financial analyst more than 10 years ago. She didn’t like our corporate ERP

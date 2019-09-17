@@ -3,6 +3,7 @@ layout: post
 title:  Mapping Excel VB Macros to Python
 date:   2009-10-12
 categories: python
+excerpt_separator: <!--end_excerpt-->
 ---
 
 A handy feature in Excel is the ability to quickly record a Visual Basic (VB)
@@ -13,6 +14,8 @@ spreadsheet and build a pivot table or chart, then integrate the macro into a
 Python script. It wasn’t always apparent to me how I could take the macro and
 use it within Python or other scripting languages beside Visual Basic, but I now
 have a pretty good grasp and want to share the technique with you.
+
+<!--end_excerpt-->
 
 This post illustrates how to capture a simple set of operations in a macro,
 examine the Visual Basic macro, port it to Python and run it. I’m using the

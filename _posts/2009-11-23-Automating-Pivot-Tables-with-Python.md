@@ -3,10 +3,13 @@ layout: post
 title:  Automating Pivot Tables with Python
 date:   2009-11-23
 categories: python
+excerpt_separator: <!--end_excerpt-->
 ---
 
 In this post I’ll develop and explain the Python code to create a set of pivot
 tables automatically in worksheet.
+
+<!--end_excerpt-->
 
 In the [last post](./2009_11_11_Introducing_Pivot_Tables.html) I explained the
 basic concept behind Pivot Tables and provided some examples. Pivot tables are

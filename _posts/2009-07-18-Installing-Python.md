@@ -3,10 +3,14 @@ layout: post
 title:  Installing Python
 date:   2009-07-18
 categories: python
+excerpt_separator: <!--end_excerpt-->
 ---
 
 Getting started with Python is easy, you just need to download the python
 installation package and install onto your computer.
+
+
+<!--end_excerpt-->
 
 ## Versions
 

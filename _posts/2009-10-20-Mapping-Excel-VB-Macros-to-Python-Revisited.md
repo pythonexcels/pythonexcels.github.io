@@ -3,11 +3,14 @@ layout: post
 title:  Mapping Excel VB Macros to Python Revisited
 date:   2009-10-20
 categories: python
+excerpt_separator: <!--end_excerpt-->
 ---
 
 The last post introduced a technique for recording a Visual Basic macro within
 Excel and migrating it to Python. This exercise will build on those techniques
 while leveraging Python for more of the work.
+
+<!--end_excerpt-->
 
 This example creates two tables from scratch – a simple multiplication table and
 a table of random numbers – and applies conditional formatting to the numbers

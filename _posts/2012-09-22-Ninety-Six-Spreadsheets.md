@@ -3,10 +3,13 @@ layout: post
 title:  Ninety Six Spreadsheets
 date:   2012-09-22
 categories: python
+excerpt_separator: <!--end_excerpt-->
 ---
 
 Here’s another application for Python and Excel: parsing a collection of
 spreadsheets for specific data.
+
+<!--end_excerpt-->
 
 Thank goodness for Python. My wife and restaurant owner L asked me this morning,
 “Honey, can you give me the history of raises for Steve Smithfield and Jeff

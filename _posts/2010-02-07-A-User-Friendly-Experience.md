@@ -3,6 +3,7 @@ layout: post
 title:  A User Friendly Experience
 date:   2010-02-07
 categories: python
+excerpt_separator: <!--end_excerpt-->
 ---
 
 If you’re going to offer your Windows users a new utility, you better provide an
@@ -11,6 +12,8 @@ better have a decent error message. This post will take the Pivot Table
 generation script developed in the Extending Pivot Table Data post and turn it
 into a user friendly Windows program with better flexibility and improved user
 experience.
+
+<!--end_excerpt-->
 
 The scripts developed previously could be run at the command line or by double
 clicking on the icon for the script line this.

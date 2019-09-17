@@ -3,6 +3,7 @@ layout: post
 title:  Cleaning Up Corporate ERP Data
 date:   2009-11-09
 categories: python
+excerpt_separator: <!--end_excerpt-->
 ---
 
 The previous posts have used Excel and Python to create and manipulate small
@@ -10,6 +11,8 @@ spreadsheets. In reality, Python and Excel are especially well suited to
 tackling large data sets. This post will illustrate some techniques for cleaning
 up data downloaded from corporate ERP systems such as SAP and Oracle, and
 getting it ready for some serious data mining with Excel.
+
+<!--end_excerpt-->
 
 In this example, a fictional company called ABCD Catering has recorded sales and
 order history for 2009 in their corporate ERP system. ABCD Catering provides

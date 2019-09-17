@@ -3,6 +3,7 @@ layout: post
 title:  Using XLWT to Write Spreadsheets Without Excel
 date:   2009-09-10
 categories: python
+excerpt_separator: <!--end_excerpt-->
 ---
 
 
@@ -10,6 +11,9 @@ Long before I even started thinking about writing a blog covering the
 integration possibilities between Excel and Python, the folks at
 [Simplistix](http://www.simplistix.co.uk) were crafting some of the handiest
 Python modules around: xlrd, xlwt and xlutils.
+
+
+<!--end_excerpt-->
 
 Simplistix is no longer with us, but their page at http://www.simplistix.co.uk
 provides links to their GitHub repos. These fantastic modules enable Python to

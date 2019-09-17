@@ -3,8 +3,8 @@ layout: post
 title:  Basic Excel Driving with Python
 date:   2009-09-29
 categories: python
+excerpt_separator: <!--end_excerpt-->
 ---
-
 
 Now it’s getting interesting. Reading and writing spreadsheets with XLRD and
 XLWT (as discussed
@@ -13,6 +13,8 @@ XLWT (as discussed
 you don’t even need a copy of Excel to do it. But to really open up your data
 and fully wring all the information possible from it, you’ll need Excel and its
 powerful set of functions, pivot tables and charting.
+
+<!--end_excerpt-->
 
 For starters, let’s do some simple operations using Python to invoke Excel, add
 a spreadsheet, insert some data, then save the results to a spreadsheet file.
