@@ -47,4 +47,4 @@ to correct the problem.
 
 So sit back and let’s get ready to write some Python!
 
-Originally posted July 3, 2009 / Revised September 20, 2019
+Originally posted July 3, 2009 / Updated September 20, 2019
