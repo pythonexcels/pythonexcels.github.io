@@ -196,6 +196,6 @@ Microsoft Excel (refer to [http://office.microsoft.com/excel](http://office.micr
 
 ## Source Files and Scripts
 
-The spreadsheet newABCDCatering.xls is available at [http://github.com/pythonexcels/excelexamples/tree/master](http://github.com/pythonexcels/excelexamples/tree/master)
+The spreadsheet newABCDCatering.xls is available at [http://github.com/pythonexcels/excelexamples](http://github.com/pythonexcels/excelexamples)
 
 Originally posted on November 11, 2009

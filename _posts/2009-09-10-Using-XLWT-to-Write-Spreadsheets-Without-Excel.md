@@ -239,7 +239,7 @@ xlwt (refer to [http://www.python-excel.org](http://www.python-excel.org))
 ## Source Files and Scripts
 
 Source for the program and data text file are available at
-[http://github.com/pythonexcels/xlwt/tree/master](http://github.com/pythonexcels/xlwt/tree/master)
+[http://github.com/pythonexcels/xlwt](http://github.com/pythonexcels/xlwt)
 
 ## References
 
