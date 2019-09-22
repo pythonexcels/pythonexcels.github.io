@@ -33,8 +33,6 @@ interactive development tool. Feel free to copy and paste as you work
 through this exercise. You can download this script from GitHub at
 [https://github.com/pythonexcels/examples/blob/master/driving.py](https://github.com/pythonexcels/examples/blob/master/driving.py)
 
-
-
 ```
 #
 # driving.py

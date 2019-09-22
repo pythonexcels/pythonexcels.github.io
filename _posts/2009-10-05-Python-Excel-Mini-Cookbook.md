@@ -6,27 +6,53 @@ categories: python
 excerpt_separator: <!--end_excerpt-->
 ---
 
-To get you started, I’ve illustrated a number of common tasks you can do with
-Python and Excel. Each program below is a self contained example, just copy it,
-paste it and run it.
+To get you started, I’ve created sample scripts to demonstrate some
+common tasks you can do with Python and Excel. Each program below is a
+self-contained example, just copy it, paste it, and run it.
 
 <!--end_excerpt-->
 
+Alternately, grab the collection of example scripts from the GitHub
+repository. Once you have the scripts, examine, run, and modify each
+script to understand it. You can copy the scripts as a zip file from
+[https://github.com/pythonexcels/examples/archive/master.zip](https://github.com/pythonexcels/examples/archive/master.zip)
+or clone the repository with the following command:
+
+```
+git clone https://github.com/pythonexcels/examples.git
+```
+
 A few things to note:
 
-* These examples were tested in Excel 2007, they should work fine in earlier and later versions as well after changing the extension of the file within the wb.SaveAs() statement from .xlsx to .xls
-* If you’re new to this, I recommend typing these examples by hand into IDLE, IPython or the Python interpreter, then watching the effect in Excel as you enter the commands. To make Excel visible, add the line ``excel.Visible = True`` after the ``excel =win32.gencache.EnsureDispatch('Excel.Application')`` line in the script
-* These are simple examples with no error checking. Make sure the output files doesn’t exist before running the script. If the script crashes, it may leave a copy of Excel running in the background. Open the Windows Task Manager and kill the background Excel process to recover.
-* These examples contain no optimization. You typically wouldn’t use a for loop to iterate through data in individual cells, it’s provided here for illustration only.
+* These examples were tested in Excel versions 2016 and 2007, they should work
+  fine in other versions as well.
+* For really old versions of Excel, change .xlsx to .xls after in the
+  wb.SaveAs() statement
+* If you’re new to this, I recommend typing these examples by hand
+  into IDLE, IPython or the Python interpreter, then watching the
+  effect in Excel as you enter the commands. To make Excel visible,
+  add the line ``excel.Visible = True`` after the ``excel
+  =win32.gencache.EnsureDispatch('Excel.Application')`` line in the
+  script
+* These are simple examples with no error checking. Make sure the
+  output files doesn’t exist before running the script. If the script
+  crashes, it may leave a copy of Excel running in the background.
+  Open the Windows Task Manager and kill the background Excel process
+  to recover.
+* These examples contain no optimization. You typically wouldn’t use a
+  for loop to iterate through data in individual cells, it’s provided
+  here for illustration only.
 
 ## Open Excel, Add a Workbook
 
-The following script simply invokes Excel, adds a workbook and saves the empty workbook. [https://github.com/pythonexcels/examples/blob/master/add_a_workbook.py](https://github.com/pythonexcels/examples/blob/master/add_a_workbook.py)
+The following script simply invokes Excel, adds a workbook and saves the empty workbook.
+
+[https://github.com/pythonexcels/examples/blob/master/add_a_workbook.py](https://github.com/pythonexcels/examples/blob/master/add_a_workbook.py)
 
 ```
 #
-# Add a workbook and save (Excel 2007)
-# For older versions of excel, use the .xls file extension
+# Add a workbook and save to My Documents / Documents Library
+# For really old versions of Excel, use the .xls file extension
 #
 import win32com.client as win32
 excel = win32.gencache.EnsureDispatch('Excel.Application')
@@ -38,11 +64,14 @@ excel.Application.Quit()
 ## Open an Existing Workbook
 
 This script opens an existing workbook and displays it using
-``excel.Visible =True``. The file workbook1.xlsx must already exist in your “My
-Documents” directory. You can also open spreadsheet files by specifying the full
-path to the file as shown below. Using ``r'`` in the statement
-``r'C:\myfiles\excel\workbook2.xlsx'`` automatically escapes the backslash
-characters and makes the file name a bit more concise. [https://github.com/pythonexcels/examples/blob/master/open_an_existing_workbook.py](https://github.com/pythonexcels/examples/blob/master/open_an_existing_workbook.py)
+``excel.Visible =True``. The file workbook1.xlsx must already exist in
+your local directory. You can also open spreadsheet files by
+specifying the full path to the file as shown below. Using ``r'`` in
+the statement ``r'C:\myfiles\excel\workbook2.xlsx'`` automatically
+escapes the backslash characters and makes the file name a bit more
+concise.
+
+[https://github.com/pythonexcels/examples/blob/master/open_an_existing_workbook.py](https://github.com/pythonexcels/examples/blob/master/open_an_existing_workbook.py)
 
 ```
 #
@@ -58,8 +87,10 @@ excel.Visible = True
 
 ## Add a Worksheet
 
-This script creates a new workbook with three sheets, adds a fourth worksheet
-and names it MyNewSheet. [https://github.com/pythonexcels/examples/blob/master/add_a_worksheet.py](https://github.com/pythonexcels/examples/blob/master/add_a_worksheet.py)
+This script creates a new workbook with three sheets, adds a fourth worksheet,
+names it MyNewSheet, and saves the file to save to My Documents / Documents Library.
+
+[https://github.com/pythonexcels/examples/blob/master/add_a_worksheet.py](https://github.com/pythonexcels/examples/blob/master/add_a_worksheet.py)
 
 ```
 #
@@ -77,15 +108,21 @@ excel.Application.Quit()
 
 ## Ranges and Offsets
 
-This script illustrates different techniques for addressing cells by using the
-``Cells()`` and ``Range()`` operators. Individual cells can be addressed using
-``Cells(row,column)``, where row is the row number, column is the column number,
-both start from 1. Groups of cells can be addressed using ``Range()``, where the
-argument in the parenthesis can be a single cell denoted by its textual name (eg
-"A2"), a group noted by a textual name with a colon (eg "A3:B4") or a group
-denoted with two ``Cells()`` identifiers (eg ``ws.Cells(1,1),ws.Cells(2,2)``). The
-Offsetmethod provides a way to address a cell based on a reference to another
-cell. [https://github.com/pythonexcels/examples/blob/master/ranges_and_offsets.py](https://github.com/pythonexcels/examples/blob/master/ranges_and_offsets.py)
+This script illustrates different techniques for addressing cells by
+using the ``Cells()`` and ``Range()`` operators. Individual cells can
+be addressed using ``Cells(row,column)``, where <em>row</em> is the
+row number and <em>column</em> is the column number. Row and column
+numbering begins at 1.
+
+Single cells or groups of cells can be addressed using ``Range()``,
+where the argument in the parenthesis can be a single cell name in
+double quotes (for example, "A2"), a group with two cell names
+separated by a colon and surrounded by double quotes (for example,
+"A3:B4") or a group denoted with two ``Cells()`` identifiers (for
+example, ``ws.Cells(1,1),ws.Cells(2,2)``). The ``Offset()`` method
+provides a method to address a cell based on a reference to another cell.
+
+[https://github.com/pythonexcels/examples/blob/master/ranges_and_offsets.py](https://github.com/pythonexcels/examples/blob/master/ranges_and_offsets.py)
 
 ```
 #
@@ -106,8 +143,13 @@ excel.Application.Quit()
 
 ## Autofill Cell Contents
 
-This script uses Excel’s autofill capability to examine data in cells A1 and A2,
-then autofill the remaining column of cells through A10. [https://github.com/pythonexcels/examples/blob/master/autofill_cells.py](https://github.com/pythonexcels/examples/blob/master/autofill_cells.py)
+This script uses Excel’s autofill capability to examine data in cells
+A1 and A2, then autofill the remaining column of cells through A10.
+The script sets cell A1 to 1, sets cell A2 to 2, and autofills the
+range A1:A10. As a result, cells A1:A10 are populated with 1, 2, 3, 4,
+and so on up to 10.
+
+[https://github.com/pythonexcels/examples/blob/master/autofill_cells.py](https://github.com/pythonexcels/examples/blob/master/autofill_cells.py)
 
 ```
 #
@@ -126,9 +168,11 @@ excel.Application.Quit()
 
 ## Cell Color
 
-This script illustrates adding an interior color to the cell using
-``Interior.ColorIndex``. Column A, rows 1 through 20 are filled with a number and
-assigned that ``ColorIndex``. [https://github.com/pythonexcels/examples/blob/master/cell_color.py](https://github.com/pythonexcels/examples/blob/master/cell_color.py)
+This script adds an interior (background) color to the cell with the
+``Interior.ColorIndex`` method. Column A, rows 1 through 20 are filled
+with a number and assigned that ``ColorIndex``.
+
+[https://github.com/pythonexcels/examples/blob/master/cell_color.py](https://github.com/pythonexcels/examples/blob/master/cell_color.py)
 
 ```
 #
@@ -148,8 +192,9 @@ excel.Application.Quit()
 ## Column Formatting
 
 This script creates two columns of data, one narrow and one wide, then formats
-the column width with the ``ColumnWidth`` property. You can also use the
+the column width by setting the ``ColumnWidth`` property. You can also use the
 ``Columns.AutoFit()`` function to autofit all columns in the spreadsheet.
+
 [https://github.com/pythonexcels/examples/blob/master/column_widths.py](https://github.com/pythonexcels/examples/blob/master/column_widths.py)
 
 ```
@@ -175,6 +220,7 @@ excel.Application.Quit()
 This script uses the ``FillAcrossSheets()`` method to copy data from one
 location to all other worksheets in the workbook. Specifically, the data in the
 range A1:J10 is copied from Sheet1 to sheets Sheet2 and Sheet3.
+
 [https://github.com/pythonexcels/examples/blob/master/copy_worksheet_to_worksheet.py](https://github.com/pythonexcels/examples/blob/master/copy_worksheet_to_worksheet.py)
 
 ```
@@ -196,7 +242,9 @@ excel.Application.Quit()
 
 This script creates two columns of data, then formats the font type and font
 size used in the worksheet. Five different fonts and sizes are used, the numbers
-are formatted using a monetary format. [https://github.com/pythonexcels/examples/blob/master/format_cells.py](https://github.com/pythonexcels/examples/blob/master/format_cells.py)
+are formatted using a monetary format.
+
+[https://github.com/pythonexcels/examples/blob/master/format_cells.py](https://github.com/pythonexcels/examples/blob/master/format_cells.py)
 
 ```
 #
@@ -221,9 +269,11 @@ excel.Application.Quit()
 
 ## Setting Row Height
 
-This script illustrates row height. Similar to column height, row height can be
-set with the ``RowHeight`` method. You can also use ``AutoFit()`` to
-automatically adjust the row height based on cell contents.
+This script creates some sample data, then adjusts the row heights and
+alignment of the data. Row height can be set with the ``RowHeight``
+method. You can also use ``AutoFit()`` to automatically adjust the row
+height based on cell contents.
+
 [https://github.com/pythonexcels/examples/blob/master/row_height.py](https://github.com/pythonexcels/examples/blob/master/row_height.py)
 
 ```
@@ -254,12 +304,12 @@ excel.Application.Quit()
 
 Python (refer to [http://www.python.org](http://www.python.org))
 
-Win32 Python module (refer to [http://sourceforge.net/projects/pywin32](http://sourceforge.net/projects/pywin32))
+pywin32 Python module [https://pypi.org/project/pywin32/](https://pypi.org/project/pywin32/)
 
 Microsoft Excel (refer to [http://office.microsoft.com/excel](http://office.microsoft.com/excel))
 
 ## Source Files and Scripts
 
-Source for the program and data text file are available at[http://github.com/pythonexcels/examples](http://github.com/pythonexcels/examples)
+Source for the program and data text file are available at [http://github.com/pythonexcels/examples](http://github.com/pythonexcels/examples)
 
-Originally posted on October 5, 2009
+Originally posted on October 5, 2009 / Updated September 21, 2019
