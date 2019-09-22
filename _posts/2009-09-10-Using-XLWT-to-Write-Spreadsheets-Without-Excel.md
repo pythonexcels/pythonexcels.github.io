@@ -14,7 +14,7 @@ handiest Python modules around: xlrd, xlwt and xlutils.
 <!--end_excerpt-->
 
 Simplistix is no longer with us, but their page at
-http://www.simplistix.co.uk provides links to their GitHub repos.
+[http://www.simplistix.co.uk](http://www.simplistix.co.uk) provides links to their GitHub repos.
 These fantastic modules enable Python to directly read and write an
 Excel .xls file without the need for Microsoft Excel. Not only can you
 insert numbers and text, but xlwt supports a multitude of formatting
@@ -24,7 +24,7 @@ modules at [http://www.python-excel.org](http://www.python-excel.org)
 
 ## Installation
 
-For Python version 2.6 and later, you can install xlwt with the `pip`
+For Python versions 2.6 and later, you can install xlwt with the `pip`
 utility. Open a Windows command window and run `pip install xlwt` as
 follows:
 
@@ -67,7 +67,7 @@ output like this:
 
 ![Excel output](/assets/images/20090910_1.png)
 
-To this output, the script does the following:
+To create this output, the script does the following:
 
 * Separates the account number and name
 * Assigns an account number of 99999 and sets the cell color to red for
@@ -81,7 +81,7 @@ widest data
 Since there are no charts, pivot tables, or other fancy formatting
 needed, xlwt is perfect for the job. Here is the script that performs
 the conversion, available at
-https://github.com/pythonexcels/xlwt/blob/master/xlwt_hospdata.py
+[https://github.com/pythonexcels/xlwt/blob/master/xlwt_hospdata.py](https://github.com/pythonexcels/xlwt/blob/master/xlwt_hospdata.py)
 
 ```
 import sys
@@ -127,8 +127,9 @@ if __name__ == "__main__":
     doxl()
 ```
 
-Before running this example, you must have xlwt installed as described in
-[Installation](#installation). Let’s look at the important bits in the script above.
+Before running this example, you must have xlwt installed as described
+in the [Installation](#installation) section above. Let’s look at the
+important bits in the script above.
 
 The following lines 12-17:
 

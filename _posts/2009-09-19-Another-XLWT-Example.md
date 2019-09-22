@@ -101,8 +101,7 @@ if __name__ == "__main__":
 As in the [previous post]({% post_url
 2009-09-10-Using-XLWT-to-Write-Spreadsheets-Without-Excel %}), you
 must have xlwt installed. See the Installation section of that post
-for instructions on installing xlwt. Looking more closely at the
-script, the following lines
+for instructions on installing xlwt. Let’s dive into the script.
 
 ```
 URL = 'http://lib.stat.cmu.edu/datasets/boston_corrected.txt'
@@ -121,12 +120,12 @@ except:
 lines = fp.readlines()
 ```
 
-determines the library to use, urllib.request (Python3) or urllib2
-(Python2), for the urlopen module. Next, `urlopen` is used to open the
-URL for the boston_corrected.txt file. The contents of the file are
-read into <em>lines</em> as a list of strings. If boston_corrected.txt
-cannot be read, a message is printed an the script exits. The next
-section:
+These lines determine the library to use, urllib.request (Python3) or
+urllib2 (Python2), for the urlopen module. Next, `urlopen` is used to
+open the URL for the boston_corrected.txt file. The contents of the
+file are read into <em>lines</em> as a list of strings. If
+boston_corrected.txt cannot be read, a message is printed and the
+script exits.
 
 ```
 wb = Workbook()
@@ -135,11 +134,11 @@ ulstyle = easyxf('font: underline single')
 r = 0
 ```
 
-creates a new Workbook object and adds a sheet named “Housing Data” to
-the workbook. The easyfx function provides a convenient way to add
-formatting to the spreadsheet. In this example, the single underline
-format is used to denote a hyperlink. In the next line, the variable r
-acts as a row counter.
+This section creates a new Workbook object and adds a sheet named
+“Housing Data” to the workbook. The easyfx function provides a
+convenient way to add formatting to the spreadsheet. In this example,
+the single underline format is used to denote a hyperlink. In the next
+line, the variable r acts as a row counter.
 
 The for loop below examines each row of data:
 
@@ -165,13 +164,13 @@ boston_corrected.txt file contains some nonascii characters, you must
 provide the encoding method in Python 3. In this example, the encoding
 method (cp1250) is the standard Windows encoding method.
 
-Next, the number of tab-separated fields is checked. A data line must
-contain 21 fields of information, otherwise, it is rejected. To
-properly format the data for the spreadsheet, the datatype is set
+Next, the script checks the number of tab-separated fields. A data
+line must contain 21 fields of information, otherwise, it is rejected.
+To properly format the data for the spreadsheet, the datatype is set
 using try-except-else within the for loop. The loop only considers
 string, integer, and float data, which is sufficient for this input
-data. Other, more complex input files might contain information which
-would require additional handling. The cell data with the correct type
+data. More complex input files might contain other data types and
+require additional handling. The cell data with the correct type
 setting is written to the spreadsheet using the ws.write statement.
 
 The next section builds the hyperlink to a Google Map using the
