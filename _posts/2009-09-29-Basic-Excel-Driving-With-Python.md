@@ -26,10 +26,14 @@ developed on Python 2.7 and Excel 2007 (the screenshots were taken
 with Excel 2007) and should run without issue. A prerequisite for this
 exercise is Python, the pywin32 module, and a copy of Microsoft Excel.
 See [Installing Python]({% post_url 2009-07-18-Installing-Python %})
-for more information on installing both Python and pywin32. Here is
-the complete script we’ll be entering using IDLE, the Python
+for more information on installing both Python and pywin32.
+
+Here is the complete script we’ll be entering using IDLE, the Python
 interactive development tool. Feel free to copy and paste as you work
-through this exercise.
+through this exercise. You can download this script from GitHub at
+[https://github.com/pythonexcels/examples/blob/master/driving.py](https://github.com/pythonexcels/examples/blob/master/driving.py)
+
+
 
 ```
 #
@@ -64,15 +68,16 @@ monitoring the result.
     IDE built with the tkinter GUI toolkit and gives you an
     interactive interface to enter, run and save Python programs. IDLE
     isn’t strictly necessary for this exercise; you could use any
-    shell command window, or a tool such as PyCharm or other IDE.
+    shell command window, or even another IDE (Integrated Development
+    Environment) such as [PyCharm](https://jetbrains.com/pycharm).
 
 2. Import the win32 module
 
     ![importwin32](/assets/images/20090929_idleimport.png)
 
-    If the import command was successful, you’ll see the “>>>” prompt returned.
-    If there was a problem, such as not having the win32 module installed
-    correctly, you’ll see ``Import Error: No module named win32com.client``. If
+    If the import command was successful, you’ll see the “&gt;&gt;&gt;” prompt returned.
+    If there was a problem, such as not having the pywin32 module installed,
+    you’ll see ``Import Error: No module named win32com.client``. If
     you see an error, install the pywin32 module as described in [Installing
     Python]({% post_url 2009-07-18-Installing-Python %}).
 
@@ -83,7 +88,7 @@ monitoring the result.
     session to a running Excel process or starts Excel if it is not
     running. If you see the “&gt;&gt;&gt;” prompt, Excel has been
     started or linked successfully. You won’t see the Excel
-    application, but if you check your task manager you can confirm
+    application yet, but if you check your task manager you can confirm
     that the process is running.
 
 4. Make Excel Visible
@@ -98,7 +103,7 @@ monitoring the result.
     ![idlewbws](/assets/images/20090929_idlewbws.png)
 
     Excel needs a workbook to serve as a container for the worksheets.
-    A new workbook containing 3 sheets is added with command ``wb =
+    A new workbook containing three sheets is added with command ``wb =
     excel.Workbooks.Add()``. The command
     ``ws=wb.Worksheets('Sheet1')`` assigns ws to the sheet named
     Sheet1, and the command ``ws.Name ='Built with Python'`` changes
@@ -107,16 +112,17 @@ monitoring the result.
 
     ![excelblank](/assets/images/20090929_excelblank.png)
 
+    The setup is now complete and you can add data to the spreadsheet.
+
 6. Add some text into the first cell
 
     ![idlehello](/assets/images/20090929_idlehello.png)
 
-    After typing these commands, you’ll see the “Hello Excel” text in
-    your Excel worksheet and in your IDLE window.
+    After typing these commands, you’ll see “Hello Excel” in
+    cell A1 of your Excel worksheet and in your IDLE window.
 
     ![excelhello](/assets/images/20090929_excelhello.png)
 
-    The setup is now complete and you can add data to the spreadsheet.
     There are several options for addressing cells and blocks of data
     in Excel; I’ll cover a few of them here. You can address
     individual cells with the ``Cells(row,column).Value`` pattern,
@@ -141,7 +147,7 @@ monitoring the result.
     maximizes the communication overhead between Python and Excel and
     results in less efficient code. It’s much better to transfer lists
     than individual elements whenever possible as shown in the next
-    section.
+    step.
 
 8. Populate the third and fourth rows of data
 
@@ -156,9 +162,9 @@ monitoring the result.
     this construct, you can efficiently transfer one- or
     two-dimensional blocks of data. In the first example, cells (3,1)
     through (3,4) are assigned to the list [5,6,7,8]. The next line
-    uses the Excel-style cell address “A4:D4” to assign the results of
-    the operation ``[i for i in range(9,13)]``. In some cases, it may
-    be more intuitive to use the Excel-style naming.
+    uses the Excel-style cell address specifier “A4:D4” to assign the
+    results of the operation ``[i for i in range(9,13)]``. In some
+    cases, it may be more intuitive to use the Excel-style naming.
 
 9. Assign a formula to sum the numbers you inserted
 
@@ -188,10 +194,9 @@ monitoring the result.
     worksheet with Python.
 
 I hope you did this exercise interactively by typing the commands and
-monitoring the result in Excel. You can also cut to the chase and run
-this script to generate the result. When the script exits, you’ll be
-left with an open Excel spreadsheet just as shown in the last
-screenshot above.
+monitoring the result in Excel. You can also run this script to
+generate the result. When the script exits, you’ll be left with an
+open Excel spreadsheet just as shown in the last screenshot above.
 
 ## Prerequisites
 
