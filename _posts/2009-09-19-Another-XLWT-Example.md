@@ -210,8 +210,8 @@ by this script looks like this:
 
 ![bostonhousing](/assets/images/20090918_2.png)
 
-Clicking on the MAP link brings up a Google Map showing the location
-according to the latitude and longitude.
+Clicking the MAP link opens a Google Map showing the location based
+on the latitude and longitude.
 
 ![googlemap](/assets/images/20090918_3.png)
 

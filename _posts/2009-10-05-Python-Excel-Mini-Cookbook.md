@@ -304,7 +304,7 @@ excel.Application.Quit()
 
 Python (refer to [http://www.python.org](http://www.python.org))
 
-pywin32 Python module [https://pypi.org/project/pywin32/](https://pypi.org/project/pywin32/)
+pywin32 Python module [https://pypi.org/project/pywin32](https://pypi.org/project/pywin32)
 
 Microsoft Excel (refer to [http://office.microsoft.com/excel](http://office.microsoft.com/excel))
 
