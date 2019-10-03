@@ -6,36 +6,41 @@ categories: python
 excerpt_separator: <!--end_excerpt-->
 ---
 
-In this post I’ll develop and explain the Python code to create a set of pivot
-tables automatically in worksheet.
+In the [last post]({% post_url 2009-11-11-Introducing-Pivot-Tables
+%}), I started with a raw data set and create four different pivot
+tables to answer various questions about the data. This post
+describes how to do the same thing in an automated fashion by using
+Python and Excel.
 
 <!--end_excerpt-->
 
-In the [last post](./2009_11_11_Introducing_Pivot_Tables.html) I explained the
-basic concept behind Pivot Tables and provided some examples. Pivot tables are
-an easy-to-use tool to derive some basic business intelligence from your data.
-As discussed last time, there are occasions when you’ll need to do interactive
-data mining by changing column and row fields. But in my experience, it’s handy
-to have my favorite reports built automatically, with the reports ready to go as
-soon as I open the spreadsheet. In this post I’ll develop and explain the code
-to create a set of pivot tables automatically in worksheet.
+Pivot tables in Excel are a powerful tool you can use for deriving
+basic business intelligence from your data. As discussed in the last
+post, there are occasions when you need to do interactive data
+mining by changing column and row fields. But in my experience, it’s
+nice to have my favorite reports built automatically, with the reports
+available as soon as I open the spreadsheet. In this post, I’ll
+develop the code to create a set of pivot tables automatically in the
+worksheet.
 
-The goal of this exercise is to automate the generation of pivot tables from the
-last post, and save them to a new Excel file.
+The goal of this exercise is to automatically generate the pivot
+tables described in the last post and save them to a new Excel file.
 
-![Pivot Tables](/assets/images/20091123_reports.png)
+![Pivot Tables](/assets/images/20191002_reports.png)
 
-I started with the file newABCDCatering.xls from the previous post and record
-the macro to create this simple pivot table showing Net Bookings by Sales Rep
-and Food Name for the last four quarters.
+I started with the file newABCDCatering.xls from the previous post and
+recorded a macro to create the simple pivot table below. The table
+shows Net Bookings by Sales Rep and Food Name for the last four
+quarters as follows:
 
-![Net Bookings](/assets/images/20091123_setup.png)
+![Net Bookings](/assets/images/20191002_setup.png)
 
-Captured in Excel 2007, the recorded macro looks like this:
+The recorded macro looks like this:
 
 ```
+Sub Macro1()
 '
-' Macro2 Macro
+' Macro1 Macro
 '
     Selection.CurrentRegion.Select
     Sheets.Add
@@ -66,40 +71,41 @@ Captured in Excel 2007, the recorded macro looks like this:
 End Sub
 ```
 
-The post Mapping Excel VB Macros to Python covered a technique for recording a
-Visual Basic macro and porting it to Python. Using that approach, you could
-simply turn on the macro recorder and generate all the required tables,
-producing a long script with lots of redundancy. A better approach is to build a
-general purpose function that can be used over and over to generate the pivot
-tables.
+Looking at the VB macro, a general pattern should be apparent. First,
+the pivot table is created with the
+``ActiveWorkbook.PivotCaches.Create()`` method. Next, the columns and
+rows are configured with a series of
+``ActiveSheet.PivotTables("PivotTable1").PivotFields()`` methods.
+Finally, the field used in the Values section of the table is
+configured using the
+``ActiveSheet.PivotTables("PivotTable1").AddDataField`` method. 
 
-Looking at the macro, you see lines specifying the Orientation of the field
-name, such as ``.Orientation = xlRowField`` and ``.Orientation =
-xlColumnField``. A pivot table has four basic areas for fields:
 
-| Report Filter | .Orientation = xlPageField   |
-| Column area   | .Orientation = xlColumnField |
-| Row area      | .Orientation = xlRowField    |
-| Values area   | PivotTables().AddDataField() |
 
-Each of these supports multiple fields (column fields for Sales Rep Name and
-Food Name were added in the example). The ordering of the fields changes the
-appearance of the table.
+A pivot table has four basic areas where you can place a field from
+the list:
 
-A general pattern should be apparent in this macro. First, the pivot table is
-created with the ``ActiveWorkbook.PivotCaches.Create()`` statement. Next, the
-columns and rows are configured with a series of
-``ActiveSheet.PivotTables("PivotTable1").PivotFields()`` statements. Finally, the
-field used in the Values section of the table is configured using the
-``ActiveSheet.PivotTables("PivotTable1").AddDataField`` statement. The general
-purpose function will need to contain all of these constructs. Note the parts
-that can’t be hard-coded: the source of the data, ``"Sheet2!R1C1:R791C13"``, and
-destination for the table, ``"Sheet3!R3C1"`` need to be determined based on the
-characteristics of the source data and can’t be hard coded in the general
-solution.
+| Report Filters | `.Orientation = xlPageField `   |
+| Columns area   | `.Orientation = xlColumnField ` |
+| Rows area      | `.Orientation = xlRowField `    |
+| Values area    | `PivotTables().AddDataField()`  |
 
-In Python, this pattern can be reduced to the following loop that covers fields
-for the Report Filter, Columns and Rows:
+
+You can add multiple fields to each of these areas. In this example,
+“Sales Rep Name” and “Food Name” were added to the Rows area. The
+ordering of the fields changes the appearance of the table.
+
+In [Mapping Excel VB Macros to Python]({% post_url
+2009-10-12-Mapping-Excel-VB-Macros-to-Python %}), I covered a
+technique for recording a Visual Basic (VB) macro and porting it to
+Python. I could capture the VB macro and port it to Python
+line-by-line with that approach, however, the Python script would
+inherit a lot of redundancy. A better technique is to
+extract some of the repetitive tasks into a function which can be
+called with different parameters to build different pivot tables. The
+following general-purpose function, `addpivot`, takes the table title,
+filters, columns, rows, and data value to be summed and generates a
+pivot table.
 
 ```
 def addpivot(wb,sourcedata,title,filters=(),columns=(),
@@ -108,37 +114,23 @@ def addpivot(wb,sourcedata,title,filters=(),columns=(),
     and specified fields
     """
     ...
-    for fieldlist,fieldc in ((filters,win32c.xlPageField),
-                            (columns,win32c.xlColumnField),
-                            (rows,win32c.xlRowField)):
+    for fieldlist,fieldc in ((filters ,win32c.xlPageField),
+                            (columns  ,win32c.xlColumnField),
+                            (rows     ,win32c.xlRowField)):
         for i,val in enumerate(fieldlist):
             wb.ActiveSheet.PivotTables(tname).PivotFields(val).Orientation = fieldc
         wb.ActiveSheet.PivotTables(tname).PivotFields(val).Position = i+1
     ...
 ```
 
-Processing the Values field is more or less copied from the Visual Basic. To
-keep things simple in this example, this code is limited to adding “Sum of”
-values only, and doesn’t handle other Summarize Value functions such as Count,
-Min, Max, etc.
+The actual values for filters, columns and rows in the `addpivot`
+function are defined in the call to the function. For example, to
+answer the question: “What were the total sales in each of the last
+four quarters?”, the pivot table is built with the following call to
+the `addpivot` function:
 
 ```
-wb.ActiveSheet.PivotTables(tname).AddDataField(
-    wb.ActiveSheet.PivotTables(tname).PivotFields(sumvalue[7:]),
-    sumvalue,
-    win32c.xlSum)
-```
-
-The actual values for filters, columns and rows in the function are defined in
-the call to the function. The complete function creates a new sheet within the
-workbook, then adds an empty pivot table to the sheet and builds the table using
-the field information provided. For example, to answer the question: What were
-the total sales in each of the last four quarters?, the pivot table is built
-with the following call to the addpivot function:
-
-### What were the total sales in each of the last four quarters?
-
-```
+# What were the total sales in each of the last four quarters?
 addpivot(wb,src,
          title="Sales by Quarter",
          filters=(),
@@ -148,19 +140,24 @@ addpivot(wb,src,
          sortfield=())
 ```
 
-which defines a pivot table using the row header “Fiscal Quarter” and data value
-“Sum of Net Booking”. The title “Sales by Quarter” is used to name the sheet
-itself.
+which defines a pivot table using the row header “Fiscal Quarter” and
+data value “Sum of Net Booking”. Note that the title parameter,
+`title="Sales by Quarter"`, is used as the worksheet title and the tab
+name.
 
-To make the output spreadsheet more understandable, the title parameter passed
-into the function and used as a title in each worksheet and as the tab name.
+![Title Tabs](/assets/images/20191002_titletabsbq.png)
 
-[Title Tabs](/assets/images/20091123_titletabsbq.png)
+The script does take some shortcuts. To keep things simple, this
+script is limited to adding “Sum of” values only, and doesn’t handle
+other Summarize Value functions such as Count, Min, Max, etc.
 
-The complete script is shown below. Caveats:
-
-* This script has been modified to run on both Excel 2007 and Excel 2003 and has been tested on those versions.
-* Adding pivot tables increases the size of the output Excel file, which can be mitigated by disabling caching of pivot table data. Line 48 of the script contains the command newsheet.PivotTables(tname).SaveData = False, which has been commented out. Uncommenting this command will reduce the size of the output Excel file, but will require that the pivot table be refreshed before use by clicking on Refresh Data on the PivotTable toolbar.
+The complete script is shown below. Note that adding pivot tables
+increases the size of the output Excel file, which can be mitigated by
+disabling caching of pivot table data. Line 48 of the script contains
+the command `newsheet.PivotTables(tname).SaveData = False`, which has
+been commented out. Uncommenting this command will reduce the size of
+the output Excel file, but will require that you refresh the pivot
+table by clicking “Refresh Data” on the PivotTable toolbar.
 
 ```
 #
@@ -184,7 +181,7 @@ def addpivot(wb,sourcedata,title,filters=(),columns=(),
     newsheet.Cells(1,1).Font.Size = 16
 
     # Build the Pivot Table
-    tname = "PivotTable%d"%tablecount.next()
+    tname = "PivotTable%d"%next(tablecount)
 
     pc = wb.PivotCaches().Add(SourceType=win32c.xlDatabase,
                                  SourceData=sourcedata)
@@ -193,9 +190,9 @@ def addpivot(wb,sourcedata,title,filters=(),columns=(),
                              DefaultVersion=win32c.xlPivotTableVersion10)
     wb.Sheets(newsheet.Name).Select()
     wb.Sheets(newsheet.Name).Cells(3,1).Select()
-    for fieldlist,fieldc in ((filters,win32c.xlPageField),
-                            (columns,win32c.xlColumnField),
-                            (rows,win32c.xlRowField)):
+    for fieldlist,fieldc in ((filters ,win32c.xlPageField),
+                            (columns  ,win32c.xlColumnField),
+                            (rows     ,win32c.xlRowField)):
         for i,val in enumerate(fieldlist):
             wb.ActiveSheet.PivotTables(tname).PivotFields(val).Orientation = fieldc
             wb.ActiveSheet.PivotTables(tname).PivotFields(val).Position = i+1
@@ -220,7 +217,7 @@ def runexcel():
     try:
         wb = excel.Workbooks.Open('ABCDCatering.xls')
     except:
-        print "Failed to open spreadsheet ABCDCatering.xls"
+        print ("Failed to open spreadsheet ABCDCatering.xls")
         sys.exit(1)
     ws = wb.Sheets('Sheet1')
     xldata = ws.UsedRange.Value
@@ -302,6 +299,8 @@ if __name__ == "__main__":
 
 Python (refer to [http://www.python.org](http://www.python.org))
 
+pywin32 Python module (Refer to [https://pypi.org/project/pywin32](https://pypi.org/project/pywin32))
+
 Microsoft Excel (refer to [http://office.microsoft.com/excel](http://office.microsoft.com/excel))
 
 ## Source Files and Scripts
@@ -309,4 +308,4 @@ Microsoft Excel (refer to [http://office.microsoft.com/excel](http://office.micr
 Source for the program erpdatapivot.py and input spreadsheet file
 ABCDCatering.xls are available at [http://github.com/pythonexcels/examples](http://github.com/pythonexcels/examples)
 
-Originally posted on November 23, 2009
+Originally posted on November 23, 2009 / Updated October 2, 2019
