@@ -6,18 +6,14 @@ categories: python
 excerpt_separator: <!--end_excerpt-->
 ---
 
-Python and Excel can help you quickly clean up a spreadsheet, organize data and
-build useful reports in very few lines of code. Another useful data preparation
-technique is to build new columns of information based on the available data, as
-shown in this post.
+Python and Excel can help you quickly clean up a spreadsheet, organize
+data, and build useful reports in very few lines of code. Another
+helpful data preparation technique is to make new columns of
+information based on the available data. This post discusses how you
+can use Python to extend your Excel data and create more meaningful
+reports.
 
 <!--end_excerpt-->
-
-For example, you could add an industry segment column to group company names by
-industry, or add an item type column to group sales items by category. While
-Excel does have some functions to help with adding new data fields, automation
-with Python eliminates the tedium of clicking column names and entering
-formulas.
 
 Excel does provide a function for calculating new values within a pivot table. One example is extending a pivot table containing pricing and quantity data to compute an average selling price. For example, given the table below:
 
@@ -36,29 +32,36 @@ performed each time the spreadsheet is updated. Python can programmatically add
 new data fields to the source table so that the data is ready for viewing
 whenever the pivot table is opened.
 
-The script developed last time automated the data cleanup and pivot table
-generation tasks. Doing some further analysis based on the output spreadsheet, I
-created a chart of the Top 10 Customers for ABCD Catering:
+The script developed in the [last post]({% post_url
+2009-11-23-Automating-Pivot-Tables-with-Python %}) automated the data
+cleanup and pivot table generation tasks. Doing some further analysis
+based on the output spreadsheet, I created a chart of the Top 10
+Customers for ABCD Catering:
 
 ![Top 10 Customers Chart](/assets/images/20091203_top10chart.png)
 
-Note that some of the company names are 15 characters or longer in length and
-occupy much of the chart space. It would be nice to have a shorter “nickname”
-for each company that could be used in the charts. One solution is to cut and
-paste the pivot table data, then modify the Company Name information by hand.
-Unfortunately, this would be very tedious. Another approach is to automate the
-process in the script and create a new column derived from a comprehensive
-reference table of company names and nicknames. The downside is that maintaining
-the list could be an issue as the business grows and the list of customers grows
-longer. A third method is to create an algorithm that uses the first word in the
-company name wherever possible, and uses a defined nickname for other special
-cases. “Sun Microsystems” becomes “Sun” and “Cisco Systems” becomes “Cisco”,
-while other company names such as “Hewlett-Packard” could be listed in a lookup
-with a nickname such as “HP”. The snippet below shows how this is done.
+Note that some of the company names are 15 characters or longer and
+occupy much of the chart space. It would be nice to have a shorter
+logo name for each company that could be used in the charts. One
+solution is to cut and paste the pivot table data, then modify the
+Company Name information by hand. Unfortunately, this would be very
+tedious. Another approach is to automate the process in the script and
+create a new column derived from a comprehensive reference table of
+full company names and shorter logo names. The downside is that
+maintaining the list could be an issue as the business grows and the
+list of customers grows longer. A third method is to create an
+algorithm that uses the first word in the company name wherever
+possible and uses a defined nickname for other special cases. “Sun
+Microsystems” becomes “Sun” and “Cisco Systems” becomes “Cisco”, while
+other company names such as “Hewlett-Packard” could be listed in a
+lookup with a nickname such as “HP”. The snippet below shows how this
+is done.
 
 ```
-logolookup = {'Applied Materials':'AMAT', 'Electronic Arts':'EA',
-              'Hewlett-Packard':'HP', 'KLA-Tencor':'KLA'}
+logolookup = {'Applied Materials' : 'AMAT',
+              'Electronic Arts'   : 'EA',
+              'Hewlett-Packard'   : 'HP',
+              'KLA-Tencor'        : 'KLA'}
 if ("Company Name" in newdata[0]):
     cindx = newdata[0].index("Company Name")
     newdata[0][cindx+1:cindx+1] = ["Logo Name"]
@@ -103,11 +106,16 @@ this code will add a column for Food Category with the appropriate entry for
 each food item:
 
 ```
-foodlookup = {'Caesar Salad':'Salad', 'Cheese Pizza':'Pizza',
-              'Cheeseburger':'Burger', 'Chocolate Sundae':'Dessert',
-              'Churro':'Snack', 'Hamburger':'Burger', 'Hot Dog':'HotDog',
-              'Pepperoni Pizza':'Pizza', 'Potato Chips':'Snack',
-              'Soda':'Drink'}
+foodlookup = {'Caesar Salad'     : 'Salad',
+              'Cheese Pizza'     : 'Pizza',
+              'Cheeseburger'     : 'Burger',
+              'Chocolate Sundae' : 'Dessert',
+              'Churro'           : 'Snack',
+              'Hamburger'        : 'Burger',
+              'Hot Dog'          : 'HotDog',
+              'Pepperoni Pizza'  : 'Pizza',
+              'Potato Chips'     : 'Snack',
+              'Soda'             : 'Drink'}
 if ("Food Name" in newdata[0]):
     cindx = newdata[0].index("Food Name")
     newdata[0][cindx+1:cindx+1] = ["Food Category"]
@@ -142,7 +150,7 @@ quantity is “Snack”, with sales of 13700 units.
 
 ![Sales by Food Category](/assets/images/20091203_foodcategory.png)
 
-Here is the completed erppivotextended.py script, also available on GitHub
+Here is the completed erppivotextended.py script, also available on GitHub at [https://github.com/pythonexcels/examples/blob/master/erppivotextended.py](https://github.com/pythonexcels/examples/blob/master/erppivotextended.py)
 
 ```
 #
@@ -166,7 +174,7 @@ def addpivot(wb,sourcedata,title,filters=(),columns=(),
     newsheet.Cells(1,1).Font.Size = 16
 
     # Build the Pivot Table
-    tname = "PivotTable%d"%tablecount.next()
+    tname = "PivotTable%d"%next(tablecount)
 
     pc = wb.PivotCaches().Add(SourceType=win32c.xlDatabase,
                                  SourceData=sourcedata)
@@ -201,11 +209,11 @@ def runexcel():
     and add pivot tables
     """
     excel = win32.gencache.EnsureDispatch('Excel.Application')
-    excel.Visible = True
+    # excel.Visible = True
     try:
         wb = excel.Workbooks.Open('ABCDCatering.xls')
     except:
-        print "Failed to open spreadsheet ABCDCatering.xls"
+        print ("Failed to open spreadsheet ABCDCatering.xls")
         sys.exit(1)
     ws = wb.Sheets('Sheet1')
     xldata = ws.UsedRange.Value
@@ -220,8 +228,10 @@ def runexcel():
         else:
             lasthdr = newdata[0][i]
 
-    logolookup = {'Applied Materials':'AMAT', 'Electronic Arts':'EA',
-                  'Hewlett-Packard':'HP', 'KLA-Tencor':'KLA'}
+    logolookup = {'Applied Materials' : 'AMAT',
+                  'Electronic Arts'   : 'EA',
+                  'Hewlett-Packard'   : 'HP',
+                  'KLA-Tencor'        : 'KLA'}
     if ("Company Name" in newdata[0]):
         cindx = newdata[0].index("Company Name")
         newdata[0][cindx+1:cindx+1] = ["Logo Name"]
@@ -233,11 +243,16 @@ def runexcel():
                 newdata[rcnt][cindx+1:cindx+1] = [newname]
                 logolookup[newdata[rcnt][cindx]] = newname
 
-    foodlookup = {'Caesar Salad':'Salad', 'Cheese Pizza':'Pizza',
-                  'Cheeseburger':'Burger', 'Chocolate Sundae':'Dessert',
-                  'Churro':'Snack', 'Hamburger':'Burger', 'Hot Dog':'HotDog',
-                  'Pepperoni Pizza':'Pizza', 'Potato Chips':'Snack',
-                  'Soda':'Drink'}
+    foodlookup = {'Caesar Salad'     : 'Salad',
+                  'Cheese Pizza'     : 'Pizza',
+                  'Cheeseburger'     : 'Burger',
+                  'Chocolate Sundae' : 'Dessert',
+                  'Churro'           : 'Snack',
+                  'Hamburger'        : 'Burger',
+                  'Hot Dog'          : 'HotDog',
+                  'Pepperoni Pizza'  : 'Pizza',
+                  'Potato Chips'     : 'Snack',
+                  'Soda'             : 'Drink'}
     if ("Food Name" in newdata[0]):
         cindx = newdata[0].index("Food Name")
         newdata[0][cindx+1:cindx+1] = ["Food Category"]
@@ -319,6 +334,7 @@ def runexcel():
 
 if __name__ == "__main__":
     runexcel()
+
 ```
 
 ## Prerequisites
