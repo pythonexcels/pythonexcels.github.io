@@ -2,6 +2,7 @@
 layout: post
 title:  A User-Friendly Experience
 date:   2010-02-07
+updated: 2019-10-03
 categories: python
 excerpt_separator: <!--end_excerpt-->
 ---
@@ -37,7 +38,7 @@ including:
 
 To keep things concise, this version of the script only allows the
 user to run the program by dragging and dropping files onto the
-program icon. Enhancing the script to support command line
+program icon. Enhancing the script to support command-line
 operation is left as an exercise for the reader. Let’s work through each
 of the usability issues below:
 
@@ -50,7 +51,7 @@ spreadsheets or document files by opening them in the application or
 dragging them onto the program icon on the desktop or in the Explorer
 window.
 
-To process multiple files, the program needs to process command line
+To process multiple files, the program needs to process command-line
 arguments provided by the `sys.argv` list in a Python program. Note
 that the first argument, `sys.argv[0]`, is used for the script name.
 In the script for this example, the runexcel function is modified to

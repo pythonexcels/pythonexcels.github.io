@@ -2,6 +2,7 @@
 layout: post
 title:  Using XLWT to Write Spreadsheets Without Excel
 date:   2009-09-10
+updated: 2019-09-20
 categories: python
 excerpt_separator: <!--end_excerpt-->
 ---

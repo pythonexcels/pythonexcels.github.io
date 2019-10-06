@@ -2,6 +2,7 @@
 layout: post
 title:  Installing Python
 date:   2009-07-18
+updated: 2019-09-20
 categories: python
 excerpt_separator: <!--end_excerpt-->
 ---

@@ -2,6 +2,7 @@
 layout: post
 title:  Introducing Pivot Tables
 date:   2009-11-11
+updated: 2019-10-01
 categories: python
 excerpt_separator: <!--end_excerpt-->
 ---

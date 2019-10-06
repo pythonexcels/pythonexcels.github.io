@@ -2,6 +2,7 @@
 layout: post
 title:  Another XLWT Example
 date:   2009-09-19
+updated: 2019-09-20
 categories: python
 excerpt_separator: <!--end_excerpt-->
 ---

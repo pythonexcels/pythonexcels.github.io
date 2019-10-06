@@ -2,6 +2,7 @@
 layout: post
 title:  What is Python Excels?
 date:   2009-07-03
+updated: 2019-09-20
 categories: python
 excerpt_separator: <!--end_excerpt-->
 ---

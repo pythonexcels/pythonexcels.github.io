@@ -2,6 +2,7 @@
 layout: post
 title:  Automating Pivot Tables with Python
 date:   2009-11-23
+updated: 2019-10-02
 categories: python
 excerpt_separator: <!--end_excerpt-->
 ---

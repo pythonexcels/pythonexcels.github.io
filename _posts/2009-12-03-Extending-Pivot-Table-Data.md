@@ -2,6 +2,7 @@
 layout: post
 title:  Extending Pivot Table Data
 date:   2009-12-03
+updated: 2019-10-02
 categories: python
 excerpt_separator: <!--end_excerpt-->
 ---
@@ -349,4 +350,5 @@ Microsoft Excel (refer to [http://office.microsoft.com/excel](http://office.micr
 
 Source for the program erppivotextended.py and spreadsheet file ABCDCatering.xls are available at [http://github.com/pythonexcels/examples](http://github.com/pythonexcels/examples)
 
-Originally posted on December 3, 2009
+Originally posted on December 3, 2009 / Updated October 2, 2019
+

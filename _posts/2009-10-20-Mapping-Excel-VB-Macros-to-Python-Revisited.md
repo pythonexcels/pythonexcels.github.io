@@ -2,6 +2,7 @@
 layout: post
 title:  Mapping Excel VB Macros to Python Revisited
 date:   2009-10-20
+updated: 2019-09-29
 categories: python
 excerpt_separator: <!--end_excerpt-->
 ---

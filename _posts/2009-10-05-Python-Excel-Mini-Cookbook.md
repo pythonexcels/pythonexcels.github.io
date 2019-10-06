@@ -2,6 +2,7 @@
 layout: post
 title:  Python Excel Mini Cookbook
 date:   2009-10-05
+updated: 2019-09-21
 categories: python
 excerpt_separator: <!--end_excerpt-->
 ---

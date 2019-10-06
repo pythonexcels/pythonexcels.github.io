@@ -2,6 +2,7 @@
 layout: post
 title:  Cleaning Up Corporate ERP Data
 date:   2009-11-09
+updated: 2019-09-30
 categories: python
 excerpt_separator: <!--end_excerpt-->
 ---

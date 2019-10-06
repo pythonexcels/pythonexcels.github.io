@@ -2,55 +2,70 @@
 layout: post
 title:  Ninety Six Spreadsheets
 date:   2012-09-22
+updated: 2019-10-05
 categories: python
 excerpt_separator: <!--end_excerpt-->
 ---
 
-Here’s another application for Python and Excel: parsing a collection of
-spreadsheets for specific data.
+Here’s another application for Python and Excel: opening a folder of
+spreadsheets and pulling specific data from each spreadsheet.
 
 <!--end_excerpt-->
 
-Thank goodness for Python. My wife and restaurant owner L asked me this morning,
-“Honey, can you give me the history of raises for Steve Smithfield and Jeff
-Johnson”. I told her I’ll look into it, and thought how I might use Python to
-tackle the problem.
+As a part-time bookkeeper for my wife’s restaurant, I needed to review
+the history of raises for a couple of her employees. Unfortunately,
+the actual pay rate was spread across 96 different spreadsheets
+representing almost four years of pay history. A typical payroll
+sheet looks like this:
 
-I have the entire history of payroll captured across ninety six spreadsheets,
-one for each pay period.
+![payroll](/assets/images/20191005_payroll_spreadsheet.png)
 
-![payroll](/assets/images/20120922_payroll.png)
+To manually click through each spreadsheet, locate the pay rate for
+the Steve and Jeff, write it down, and go to the next spreadsheet
+would take about 30 seconds per spreadsheet. Instead of spending
+almost 50 minutes opening and closing spreadsheets, I decided to
+invest 10 minutes in a Python script I could use over and over.
 
-To manually click through each spreadsheet, locate the pay rate for the Steve
-and Jeff, write it down, and go to the next spreadsheet would take about 30
-seconds per spreadsheet, or almost 50 minutes. I decided to invest 10 minutes in
-a Python script I could use over and over. The script basically opens every .xls
-file in the local directory and creates a list of employee names in the
-spreadsheet. If Steve or Jeff are found in the list, their salary is appended to
-a list. After all the spreadsheets are read, the script prints out the results.
-The spreadsheets are named “Timesheet_20120101.xls” for January 1, 2012,
-“Timesheet_20120515.xls” for May 15, 2012, etc.
+The script opens every .xlsx file in the local directory and extracts
+the list of employee names from column B. If either Steve or Jeff is
+found in the list, their salary is recorded. After all the
+spreadsheets are read, the script prints out the results. The
+spreadsheets are named “2012-01-01-Payroll.xlsx” for January 1, 2012,
+“2012-01-15-Payroll.xlsx” for January 15, 2012, and so on.
 
-Here is the completed script
+The brief example on Github contains two spreadsheets: 2012-01-01-Payroll.xlsx and 2012-01-15-Payroll.xlsx. The script opens these files, extracts payrates for Jeff and Steve, and writes the payrates to jeffsteve.csv as shown below:
+
+![Running the script](/assets/images/20191005_cmd.png)
+
+The completed script is, available at [https://github.com/pythonexcels/examples/blob/master/payrates.py](https://github.com/pythonexcels/examples/blob/master/payrates.py). The sample spreadsheets are available at [https://github.com/pythonexcels/examples/raw/master/Payroll/2012-01-01-Payroll.xlsx](https://github.com/pythonexcels/examples/raw/master/Payroll/2012-01-01-Payroll.xlsx) and [https://github.com/pythonexcels/examples/raw/master/Payroll/2012-01-15-Payroll.xlsx](https://github.com/pythonexcels/examples/raw/master/Payroll/2012-01-15-Payroll.xlsx) if you'd like to test the script yourself.
 
 ```
 #
+# payrates.py
 # Report payrates for two employees across multiple spreadsheets
 #
 import win32com.client as win32
 import glob
 import os
 
-xlfiles = sorted(glob.glob("*.xls"))
-print "Reading %d files..."%len(xlfiles)
+xlxsfiles = sorted(glob.glob("*.xlsx"))
+print ("Reading %d files..."%len(xlxsfiles))
 
 steve = []
 jeff = []
 cwd = os.getcwd()
 excel = win32.gencache.EnsureDispatch('Excel.Application')
-for xlfile in xlfiles:
-    wb = excel.Workbooks.Open(cwd+"\\"+xlfile)
-    ws = wb.Sheets('PAYROLL')
+fpjeffsteve = open('jeffsteve.csv','w')
+for xlsxfile in xlxsfiles:
+    wb = excel.Workbooks.Open(cwd+"\\"+xlsxfile)
+    try:
+        ws = wb.Sheets('PAYROLL')
+    except:
+        print ("No sheet named 'PAYROLL' in %s, skipping"%xlsxfile)
+        jeff.append(0.0)
+        steve.append(0.0)
+        wb.Close()
+        continue
     xldata = ws.UsedRange.Value
     names = [r[1] for r in xldata]
     if u'SMITHFIELD, STEVE' in names:
@@ -66,10 +81,11 @@ for xlfile in xlfiles:
         jeff.append(0)
     wb.Close()
 
-print "File,Jeff,Steve"
-for i in range(len(xlfiles)):
-    print "%s,%0.2f,%0.2f"%(xlfiles[i],jeff[i],steve[i])
+fpjeffsteve.write ("File,Jeff,Steve\n")
+for i in range(len(xlxsfiles)):
+    fpjeffsteve.write ("%s,%0.2f,%0.2f\n"%(xlxsfiles[i],jeff[i],steve[i]))
+print ("Wrote jeffsteve.csv")
 excel.Application.Quit()
 ```
 
-Originally Posted on September 22, 2012
+Originally Posted on September 22, 2012 / Updated October 5, 2019
