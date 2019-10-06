@@ -37,7 +37,7 @@ The brief example on Github contains two spreadsheets: 2012-01-01-Payroll.xlsx a
 
 ![Running the script](/assets/images/20191005_cmd.png)
 
-The completed script is, available at [https://github.com/pythonexcels/examples/blob/master/payrates.py](https://github.com/pythonexcels/examples/blob/master/payrates.py). The sample spreadsheets are available at [https://github.com/pythonexcels/examples/raw/master/Payroll/2012-01-01-Payroll.xlsx](https://github.com/pythonexcels/examples/raw/master/Payroll/2012-01-01-Payroll.xlsx) and [https://github.com/pythonexcels/examples/raw/master/Payroll/2012-01-15-Payroll.xlsx](https://github.com/pythonexcels/examples/raw/master/Payroll/2012-01-15-Payroll.xlsx) if you'd like to test the script yourself.
+The completed script is available at [https://github.com/pythonexcels/examples/blob/master/payrates.py](https://github.com/pythonexcels/examples/blob/master/payrates.py). The sample spreadsheets are available at [https://github.com/pythonexcels/examples/raw/master/Payroll/2012-01-01-Payroll.xlsx](https://github.com/pythonexcels/examples/raw/master/Payroll/2012-01-01-Payroll.xlsx) and [https://github.com/pythonexcels/examples/raw/master/Payroll/2012-01-15-Payroll.xlsx](https://github.com/pythonexcels/examples/raw/master/Payroll/2012-01-15-Payroll.xlsx) if you'd like to test the script yourself.
 
 ```
 #
