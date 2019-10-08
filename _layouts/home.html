@@ -2,6 +2,7 @@
 layout: default
 ---
 
+<img src="/assets/images/pythontoexcelw2.png">
 <div class="home">
   {%- if page.title -%}
     <h1 class="page-heading">{{ page.title }}</h1>
@@ -15,7 +16,11 @@ layout: default
       {%- for post in site.posts reversed -%}
       <li>
         {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
-        <span class="post-meta">{{ post.date | date: date_format }}</span>
+        <span class="post-meta">{{ post.date | date: date_format }}
+        {% if post.updated %}
+         (Updated {{ post.updated | date: date_format }})
+        {% endif %}
+</span>
         <h3>
           <a class="post-link" href="{{ post.url | relative_url }}">
             {{ post.title | escape }}
