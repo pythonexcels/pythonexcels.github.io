@@ -21,7 +21,7 @@ sheet looks like this:
 ![payroll](/assets/images/20191005_payroll_spreadsheet.png)
 
 To manually click through each spreadsheet, locate the pay rate for
-the Steve and Jeff, write it down, and go to the next spreadsheet
+Steve and Jeff, write it down, and go to the next spreadsheet
 would take about 30 seconds per spreadsheet. Instead of spending
 almost 50 minutes opening and closing spreadsheets, I decided to
 invest 10 minutes in a Python script I could use over and over.
