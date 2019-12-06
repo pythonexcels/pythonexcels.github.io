@@ -1,3 +1,3 @@
 # pythonexcels.github.io
 
-Repository for blog posts at [pythonexcels.com](https://pythonexcels.com)
+This is the repository for blog posts at [pythonexcels.com](https://pythonexcels.com)
