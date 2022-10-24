@@ -44,6 +44,21 @@ A few things to note:
   for loop to iterate through data in individual cells, it’s provided
   here for illustration only.
 
+## Table of Contents
+- [Table of Contents](#table-of-contents)
+- [Open Excel, Add a Workbook](#open-excel-add-a-workbook)
+- [Open an Existing Workbook](#open-an-existing-workbook)
+- [Add a Worksheet](#add-a-worksheet)
+- [Ranges and Offsets](#ranges-and-offsets)
+- [Autofill Cell Contents](#autofill-cell-contents)
+- [Cell Color](#cell-color)
+- [Column Formatting](#column-formatting)
+- [Copying Data from Worksheet to Worksheet](#copying-data-from-worksheet-to-worksheet)
+- [Format Worksheet Cells](#format-worksheet-cells)
+- [Setting Row Height](#setting-row-height)
+- [Prerequisites](#prerequisites)
+- [Source Files and Scripts](#source-files-and-scripts)
+
 ## Open Excel, Add a Workbook
 
 The following script simply invokes Excel, adds a workbook and saves the empty workbook.
