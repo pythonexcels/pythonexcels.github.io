@@ -19,7 +19,7 @@ script to understand it. You can copy the scripts as a zip file from
 [https://github.com/pythonexcels/examples/archive/master.zip](https://github.com/pythonexcels/examples/archive/master.zip)
 or clone the repository with the following command:
 
-```
+```shell
 git clone https://github.com/pythonexcels/examples.git
 ```
 
@@ -65,7 +65,7 @@ The following script simply invokes Excel, adds a workbook and saves the empty w
 
 [https://github.com/pythonexcels/examples/blob/master/add_a_workbook.py](https://github.com/pythonexcels/examples/blob/master/add_a_workbook.py)
 
-```
+```python
 #
 # Add a workbook and save to My Documents / Documents Library
 # For really old versions of Excel, use the .xls file extension
@@ -89,7 +89,7 @@ concise.
 
 [https://github.com/pythonexcels/examples/blob/master/open_an_existing_workbook.py](https://github.com/pythonexcels/examples/blob/master/open_an_existing_workbook.py)
 
-```
+```python
 #
 # Open an existing workbook
 #
@@ -108,7 +108,7 @@ names it MyNewSheet, and saves the file to save to My Documents / Documents Libr
 
 [https://github.com/pythonexcels/examples/blob/master/add_a_worksheet.py](https://github.com/pythonexcels/examples/blob/master/add_a_worksheet.py)
 
-```
+```python
 #
 # Add a workbook, add a worksheet,
 # name it 'MyNewSheet' and save
@@ -140,7 +140,7 @@ provides a method to address a cell based on a reference to another cell.
 
 [https://github.com/pythonexcels/examples/blob/master/ranges_and_offsets.py](https://github.com/pythonexcels/examples/blob/master/ranges_and_offsets.py)
 
-```
+```python
 #
 # Using ranges and offsets
 #
@@ -167,7 +167,7 @@ and so on up to 10.
 
 [https://github.com/pythonexcels/examples/blob/master/autofill_cells.py](https://github.com/pythonexcels/examples/blob/master/autofill_cells.py)
 
-```
+```python
 #
 # Autofill cell contents
 #
@@ -190,7 +190,7 @@ with a number and assigned that ``ColorIndex``.
 
 [https://github.com/pythonexcels/examples/blob/master/cell_color.py](https://github.com/pythonexcels/examples/blob/master/cell_color.py)
 
-```
+```python
 #
 # Add an interior color to cells
 #
@@ -213,7 +213,7 @@ the column width by setting the ``ColumnWidth`` property. You can also use the
 
 [https://github.com/pythonexcels/examples/blob/master/column_widths.py](https://github.com/pythonexcels/examples/blob/master/column_widths.py)
 
-```
+```python
 #
 # Set column widths
 #
@@ -239,7 +239,7 @@ range A1:J10 is copied from Sheet1 to sheets Sheet2 and Sheet3.
 
 [https://github.com/pythonexcels/examples/blob/master/copy_worksheet_to_worksheet.py](https://github.com/pythonexcels/examples/blob/master/copy_worksheet_to_worksheet.py)
 
-```
+```python
 #
 # Copy data and formatting from a range of one worksheet
 # to all other worksheets in a workbook
@@ -262,7 +262,7 @@ are formatted using a monetary format.
 
 [https://github.com/pythonexcels/examples/blob/master/format_cells.py](https://github.com/pythonexcels/examples/blob/master/format_cells.py)
 
-```
+```python
 #
 # Format cell font name and size, format numbers in monetary format
 #
@@ -292,7 +292,7 @@ height based on cell contents.
 
 [https://github.com/pythonexcels/examples/blob/master/row_height.py](https://github.com/pythonexcels/examples/blob/master/row_height.py)
 
-```
+```python
 #
 # Set row heights and align text within the cell
 #
