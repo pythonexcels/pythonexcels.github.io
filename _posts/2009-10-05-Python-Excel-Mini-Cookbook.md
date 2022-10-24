@@ -63,7 +63,7 @@ A few things to note:
 
 The following script simply invokes Excel, adds a workbook and saves the empty workbook.
 
-[https://github.com/pythonexcels/examples/blob/master/add_a_workbook.py](https://github.com/pythonexcels/examples/blob/master/add_a_workbook.py)
+[Go to example](https://github.com/pythonexcels/examples/blob/master/add_a_workbook.py)
 
 ```python
 #
@@ -71,9 +71,11 @@ The following script simply invokes Excel, adds a workbook and saves the empty w
 # For really old versions of Excel, use the .xls file extension
 #
 import win32com.client as win32
+
 excel = win32.gencache.EnsureDispatch('Excel.Application')
 wb = excel.Workbooks.Add()
 wb.SaveAs('add_a_workbook.xlsx')
+
 excel.Application.Quit()
 ```
 
@@ -87,13 +89,14 @@ the statement ``r'C:\myfiles\excel\workbook2.xlsx'`` automatically
 escapes the backslash characters and makes the file name a bit more
 concise.
 
-[https://github.com/pythonexcels/examples/blob/master/open_an_existing_workbook.py](https://github.com/pythonexcels/examples/blob/master/open_an_existing_workbook.py)
+[Go to example](https://github.com/pythonexcels/examples/blob/master/open_an_existing_workbook.py)
 
 ```python
 #
 # Open an existing workbook
 #
 import win32com.client as win32
+
 excel = win32.gencache.EnsureDispatch('Excel.Application')
 wb = excel.Workbooks.Open('workbook1.xlsx')
 # Alternately, specify the full path to the workbook
@@ -109,7 +112,7 @@ Then it saves the file to save to My Documents / Documents Library.
 > **NOTE**  
 > You can adjust the final position of the worksheet by making use of the `Before` and `After` parameters of the `wb.Worksheets.Add` function.
 
-[https://github.com/pythonexcels/examples/blob/master/add_a_worksheet.py](https://github.com/pythonexcels/examples/blob/master/add_a_worksheet.py)
+[Go to example](https://github.com/pythonexcels/examples/blob/master/add_a_worksheet.py)
 
 ```python
 #
@@ -117,6 +120,7 @@ Then it saves the file to save to My Documents / Documents Library.
 # rename them and save
 #
 import win32com.client as win32
+
 excel = win32.gencache.EnsureDispatch('Excel.Application')
 wb = excel.Workbooks.Add()
 
@@ -148,13 +152,14 @@ separated by a colon and surrounded by double quotes (for example,
 example, ``ws.Cells(1,1),ws.Cells(2,2)``). The ``Offset()`` method
 provides a method to address a cell based on a reference to another cell.
 
-[https://github.com/pythonexcels/examples/blob/master/ranges_and_offsets.py](https://github.com/pythonexcels/examples/blob/master/ranges_and_offsets.py)
+[Go to example](https://github.com/pythonexcels/examples/blob/master/ranges_and_offsets.py)
 
 ```python
 #
 # Using ranges and offsets
 #
 import win32com.client as win32
+
 excel = win32.gencache.EnsureDispatch('Excel.Application')
 wb = excel.Workbooks.Add()
 ws = wb.Worksheets("Sheet1")
@@ -175,13 +180,14 @@ The script sets cell A1 to 1, sets cell A2 to 2, and autofills the
 range A1:A10. As a result, cells A1:A10 are populated with 1, 2, 3, 4,
 and so on up to 10.
 
-[https://github.com/pythonexcels/examples/blob/master/autofill_cells.py](https://github.com/pythonexcels/examples/blob/master/autofill_cells.py)
+[Go to example](https://github.com/pythonexcels/examples/blob/master/autofill_cells.py)
 
 ```python
 #
 # Autofill cell contents
 #
 import win32com.client as win32
+
 excel = win32.gencache.EnsureDispatch('Excel.Application')
 wb = excel.Workbooks.Add()
 ws = wb.Worksheets("Sheet1")
@@ -198,13 +204,14 @@ This script adds an interior (background) color to the cell with the
 ``Interior.ColorIndex`` method. Column A, rows 1 through 20 are filled
 with a number and assigned that ``ColorIndex``.
 
-[https://github.com/pythonexcels/examples/blob/master/cell_color.py](https://github.com/pythonexcels/examples/blob/master/cell_color.py)
+[Go to example](https://github.com/pythonexcels/examples/blob/master/cell_color.py)
 
 ```python
 #
 # Add an interior color to cells
 #
 import win32com.client as win32
+
 excel = win32.gencache.EnsureDispatch('Excel.Application')
 wb = excel.Workbooks.Add()
 ws = wb.Worksheets("Sheet1")
@@ -221,13 +228,14 @@ This script creates two columns of data, one narrow and one wide, then formats
 the column width by setting the ``ColumnWidth`` property. You can also use the
 ``Columns.AutoFit()`` function to autofit all columns in the spreadsheet.
 
-[https://github.com/pythonexcels/examples/blob/master/column_widths.py](https://github.com/pythonexcels/examples/blob/master/column_widths.py)
+[Go to example](https://github.com/pythonexcels/examples/blob/master/column_widths.py)
 
 ```python
 #
 # Set column widths
 #
 import win32com.client as win32
+
 excel = win32.gencache.EnsureDispatch('Excel.Application')
 wb = excel.Workbooks.Add()
 ws = wb.Worksheets("Sheet1")
@@ -247,7 +255,7 @@ This script uses the ``FillAcrossSheets()`` method to copy data from one
 location to all other worksheets in the workbook. Specifically, the data in the
 range A1:J10 is copied from Sheet1 to sheets Sheet2 and Sheet3.
 
-[https://github.com/pythonexcels/examples/blob/master/copy_worksheet_to_worksheet.py](https://github.com/pythonexcels/examples/blob/master/copy_worksheet_to_worksheet.py)
+[Go to example](https://github.com/pythonexcels/examples/blob/master/copy_worksheet_to_worksheet.py)
 
 ```python
 #
@@ -255,6 +263,7 @@ range A1:J10 is copied from Sheet1 to sheets Sheet2 and Sheet3.
 # to all other worksheets in a workbook
 #
 import win32com.client as win32
+
 excel = win32.gencache.EnsureDispatch('Excel.Application')
 wb = excel.Workbooks.Add()
 ws = wb.Worksheets("Sheet1")
@@ -270,13 +279,14 @@ This script creates two columns of data, then formats the font type and font
 size used in the worksheet. Five different fonts and sizes are used, the numbers
 are formatted using a monetary format.
 
-[https://github.com/pythonexcels/examples/blob/master/format_cells.py](https://github.com/pythonexcels/examples/blob/master/format_cells.py)
+[Go to example](https://github.com/pythonexcels/examples/blob/master/format_cells.py)
 
 ```python
 #
 # Format cell font name and size, format numbers in monetary format
 #
 import win32com.client as win32
+
 excel = win32.gencache.EnsureDispatch('Excel.Application')
 wb = excel.Workbooks.Add()
 ws = wb.Worksheets("Sheet1")
@@ -300,13 +310,14 @@ alignment of the data. Row height can be set with the ``RowHeight``
 method. You can also use ``AutoFit()`` to automatically adjust the row
 height based on cell contents.
 
-[https://github.com/pythonexcels/examples/blob/master/row_height.py](https://github.com/pythonexcels/examples/blob/master/row_height.py)
+[Go to example](https://github.com/pythonexcels/examples/blob/master/row_height.py)
 
 ```python
 #
 # Set row heights and align text within the cell
 #
 import win32com.client as win32
+
 excel = win32.gencache.EnsureDispatch('Excel.Application')
 wb = excel.Workbooks.Add()
 ws = wb.Worksheets("Sheet1")
