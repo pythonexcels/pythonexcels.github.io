@@ -103,21 +103,31 @@ excel.Visible = True
 
 ## Add a Worksheet
 
-This script creates a new workbook with three sheets, adds a fourth worksheet,
-names it MyNewSheet, and saves the file to save to My Documents / Documents Library.
+This script creates a new workbook with three sheets, adds a fourth worksheet, names it *NewFirstSheet* and places it as first, then adds a fifth worksheet, names it *LastSheet* and places it as last.  
+Then it saves the file to save to My Documents / Documents Library.
+
+> **NOTE**  
+> You can adjust the final position of the worksheet by making use of the `Before` and `After` parameters of the `wb.Worksheets.Add` function.
 
 [https://github.com/pythonexcels/examples/blob/master/add_a_worksheet.py](https://github.com/pythonexcels/examples/blob/master/add_a_worksheet.py)
 
 ```python
 #
-# Add a workbook, add a worksheet,
-# name it 'MyNewSheet' and save
+# Add a workbook, add two worksheets,
+# rename them and save
 #
 import win32com.client as win32
 excel = win32.gencache.EnsureDispatch('Excel.Application')
 wb = excel.Workbooks.Add()
+
+# Add a new sheet (before the first)
 ws = wb.Worksheets.Add()
-ws.Name = "MyNewSheet"
+ws.Name = "NewFirstSheet"
+
+# Add a new sheet (after the last)
+ws = wb.Worksheets.Add(Before=None, After=wb.Worksheets(wb.Worksheets.Count))
+ws.Name = "LastSheet"
+
 wb.SaveAs('add_a_worksheet.xlsx')
 excel.Application.Quit()
 ```
