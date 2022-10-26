@@ -46,20 +46,31 @@ A few things to note:
 
 ## Table of Contents
 - [Table of Contents](#table-of-contents)
-- [Open Excel, Add a Workbook](#open-excel-add-a-workbook)
-- [Open an Existing Workbook](#open-an-existing-workbook)
-- [Add a Worksheet](#add-a-worksheet)
-- [Ranges and Offsets](#ranges-and-offsets)
-- [Autofill Cell Contents](#autofill-cell-contents)
-- [Cell Color](#cell-color)
-- [Column Formatting](#column-formatting)
-- [Copying Data from Worksheet to Worksheet](#copying-data-from-worksheet-to-worksheet)
-- [Format Worksheet Cells](#format-worksheet-cells)
-- [Setting Row Height](#setting-row-height)
 - [Prerequisites](#prerequisites)
+- [Recipes](#recipes)
+	- [Open Excel, Add a Workbook](#open-excel-add-a-workbook)
+	- [Open an Existing Workbook](#open-an-existing-workbook)
+	- [Add a Worksheet](#add-a-worksheet)
+	- [Ranges and Offsets](#ranges-and-offsets)
+	- [Autofill Cell Contents](#autofill-cell-contents)
+	- [Cell Color](#cell-color)
+	- [Column Formatting](#column-formatting)
+	- [Copying Data from Worksheet to Worksheet](#copying-data-from-worksheet-to-worksheet)
+	- [Format Worksheet Cells](#format-worksheet-cells)
+	- [Setting Row Height](#setting-row-height)
 - [Source Files and Scripts](#source-files-and-scripts)
 
-## Open Excel, Add a Workbook
+
+## Prerequisites
+The following MUST be installed in order to the snippets to work:
+- Python (refer to [http://www.python.org](http://www.python.org))
+
+- `pywin32` Python module (refer to [https://pypi.org/project/pywin32](https://pypi.org/project/pywin32))
+
+- Microsoft Excel (refer to [http://office.microsoft.com/excel](http://office.microsoft.com/excel))
+
+## Recipes
+### Open Excel, Add a Workbook
 
 The following script simply invokes Excel, adds a workbook and saves the empty workbook.
 
@@ -79,7 +90,7 @@ wb.SaveAs('add_a_workbook.xlsx')
 excel.Application.Quit()
 ```
 
-## Open an Existing Workbook
+### Open an Existing Workbook
 
 This script opens an existing workbook and displays it using
 ``excel.Visible =True``. The file workbook1.xlsx must already exist in
@@ -104,7 +115,7 @@ wb = excel.Workbooks.Open('workbook1.xlsx')
 excel.Visible = True
 ```
 
-## Add a Worksheet
+### Add a Worksheet
 
 This script creates a new workbook with three sheets, adds a fourth worksheet, names it *NewFirstSheet* and places it as first, then adds a fifth worksheet, names it *LastSheet* and places it as last.  
 Then it saves the file to save to My Documents / Documents Library.
@@ -136,7 +147,7 @@ wb.SaveAs('add_a_worksheet.xlsx')
 excel.Application.Quit()
 ```
 
-## Ranges and Offsets
+### Ranges and Offsets
 
 This script illustrates different techniques for addressing cells by
 using the ``Cells()`` and ``Range()`` operators. Individual cells can
@@ -172,7 +183,7 @@ wb.SaveAs('ranges_and_offsets.xlsx')
 excel.Application.Quit()
 ```
 
-## Autofill Cell Contents
+### Autofill Cell Contents
 
 This script uses Excel’s autofill capability to examine data in cells
 A1 and A2, then autofill the remaining column of cells through A10.
@@ -198,7 +209,7 @@ wb.SaveAs('autofill_cells.xlsx')
 excel.Application.Quit()
 ```
 
-## Cell Color
+### Cell Color
 
 This script adds an interior (background) color to the cell with the
 ``Interior.ColorIndex`` method. Column A, rows 1 through 20 are filled
@@ -222,7 +233,7 @@ wb.SaveAs('cell_color.xlsx')
 excel.Application.Quit()
 ```
 
-## Column Formatting
+### Column Formatting
 
 This script creates two columns of data, one narrow and one wide, then formats
 the column width by setting the ``ColumnWidth`` property. You can also use the
@@ -249,7 +260,7 @@ wb.SaveAs('column_widths.xlsx')
 excel.Application.Quit()
 ```
 
-## Copying Data from Worksheet to Worksheet
+### Copying Data from Worksheet to Worksheet
 
 This script uses the ``FillAcrossSheets()`` method to copy data from one
 location to all other worksheets in the workbook. Specifically, the data in the
@@ -273,7 +284,7 @@ wb.SaveAs('copy_worksheet_to_worksheet.xlsx')
 excel.Application.Quit()
 ```
 
-## Format Worksheet Cells
+### Format Worksheet Cells
 
 This script creates two columns of data, then formats the font type and font
 size used in the worksheet. Five different fonts and sizes are used, the numbers
@@ -303,7 +314,7 @@ wb.SaveAs('format_cells.xlsx')
 excel.Application.Quit()
 ```
 
-## Setting Row Height
+### Setting Row Height
 
 This script creates some sample data, then adjusts the row heights and
 alignment of the data. Row height can be set with the ``RowHeight``
@@ -336,14 +347,6 @@ ws.Range("2:2").VerticalAlignment = win32.constants.xlCenter
 wb.SaveAs('row_height.xlsx')
 excel.Application.Quit()
 ```
-
-## Prerequisites
-
-Python (refer to [http://www.python.org](http://www.python.org))
-
-pywin32 Python module [https://pypi.org/project/pywin32](https://pypi.org/project/pywin32)
-
-Microsoft Excel (refer to [http://office.microsoft.com/excel](http://office.microsoft.com/excel))
 
 ## Source Files and Scripts
 
