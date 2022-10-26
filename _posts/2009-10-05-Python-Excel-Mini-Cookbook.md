@@ -62,7 +62,7 @@ A few things to note:
 
 
 ## Prerequisites
-The following MUST be installed in order to the snippets to work:
+The following MUST be installed in order for the snippets to work:
 - [**Python**](http://www.python.org)
 
 - [**`pywin32`**](https://pypi.org/project/pywin32) (*Python module*)
