@@ -63,11 +63,11 @@ A few things to note:
 
 ## Prerequisites
 The following MUST be installed in order to the snippets to work:
-- Python (refer to [http://www.python.org](http://www.python.org))
+- [**Python**](http://www.python.org)
 
-- `pywin32` Python module (refer to [https://pypi.org/project/pywin32](https://pypi.org/project/pywin32))
+- [**`pywin32`**](https://pypi.org/project/pywin32) (*Python module*)
 
-- Microsoft Excel (refer to [http://office.microsoft.com/excel](http://office.microsoft.com/excel))
+- [**Microsoft Office Excel**](http://office.microsoft.com/excel) (*any other alternative won't work*)
 
 ## Recipes
 ### Open Excel, Add a Workbook
