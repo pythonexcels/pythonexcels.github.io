@@ -58,6 +58,7 @@ A few things to note:
 	- [Copying Data from Worksheet to Worksheet](#copying-data-from-worksheet-to-worksheet)
 	- [Format Worksheet Cells](#format-worksheet-cells)
 	- [Setting Row Height](#setting-row-height)
+	- [Set zoom for all worksheets](#set-zoom-for-all-worksheets)
 - [Source Files and Scripts](#source-files-and-scripts)
 
 
@@ -345,6 +346,28 @@ worksheet.Range("2:2").VerticalAlignment = win32.constants.xlCenter
 # worksheet.Rows.AutoFit()
 
 workbook.SaveAs('row_height.xlsx')
+excel.Application.Quit()
+```
+
+### Set zoom for all worksheets
+This is based [on this answer on SO](https://stackoverflow.com/a/39715890/8965861). 
+Basically first all worksheets are selected, then the zoom is set. After that, the worksheet selection is brought back to normal by selecting the first sheet (but it could be any sheet)
+
+```python
+#
+# Set zoom for all Worksheets
+#
+import win32com.client as win32
+
+excel = win32.gencache.EnsureDispatch('Excel.Application')
+workbook = excel.Workbooks.Add()
+workbook = excel.Workbooks.Add()
+
+workbook.Worksheets.Select()
+excel.ActiveWindow.Zoom = 20
+workbook.Worksheets(1).Select()
+
+workbook.SaveAs('zoom.xlsx')
 excel.Application.Quit()
 ```
 
