@@ -28,7 +28,7 @@ A few things to note:
 * These examples were tested in Excel versions 2016 and 2007, they should work
   fine in other versions as well.
 * For really old versions of Excel, change .xlsx to .xls after in the
-  wb.SaveAs() statement
+  workbook.SaveAs() statement
 * If you’re new to this, I recommend typing these examples by hand
   into IDLE, IPython or the Python interpreter, then watching the
   effect in Excel as you enter the commands. To make Excel visible,
@@ -84,8 +84,8 @@ The following script simply invokes Excel, adds a workbook and saves the empty w
 import win32com.client as win32
 
 excel = win32.gencache.EnsureDispatch('Excel.Application')
-wb = excel.Workbooks.Add()
-wb.SaveAs('add_a_workbook.xlsx')
+workbook = excel.Workbooks.Add()
+workbook.SaveAs('add_a_workbook.xlsx')
 
 excel.Application.Quit()
 ```
@@ -109,9 +109,9 @@ concise.
 import win32com.client as win32
 
 excel = win32.gencache.EnsureDispatch('Excel.Application')
-wb = excel.Workbooks.Open('workbook1.xlsx')
+workbook = excel.Workbooks.Open('workbook1.xlsx')
 # Alternately, specify the full path to the workbook
-# wb = excel.Workbooks.Open(r'C:\myfiles\excel\workbook2.xlsx')
+# workbook = excel.Workbooks.Open(r'C:\myfiles\excel\workbook2.xlsx')
 excel.Visible = True
 ```
 
@@ -121,7 +121,7 @@ This script creates a new workbook with three sheets, adds a fourth worksheet, n
 Then it saves the file to save to My Documents / Documents Library.
 
 > **NOTE**  
-> You can adjust the final position of the worksheet by making use of the `Before` and `After` parameters of the `wb.Worksheets.Add` function.
+> You can adjust the final position of the worksheet by making use of the `Before` and `After` parameters of the `workbook.Worksheets.Add` function.
 
 [Go to example](https://github.com/pythonexcels/examples/blob/master/add_a_worksheet.py)
 
@@ -133,17 +133,17 @@ Then it saves the file to save to My Documents / Documents Library.
 import win32com.client as win32
 
 excel = win32.gencache.EnsureDispatch('Excel.Application')
-wb = excel.Workbooks.Add()
+workbook = excel.Workbooks.Add()
 
 # Add a new sheet (before the first)
-ws = wb.Worksheets.Add()
-ws.Name = "NewFirstSheet"
+worksheet = workbook.Worksheets.Add()
+worksheet.Name = "NewFirstSheet"
 
 # Add a new sheet (after the last)
-ws = wb.Worksheets.Add(Before=None, After=wb.Worksheets(wb.Worksheets.Count))
-ws.Name = "LastSheet"
+worksheet = workbook.Worksheets.Add(Before=None, After=workbook.Worksheets(workbook.Worksheets.Count))
+worksheet.Name = "LastSheet"
 
-wb.SaveAs('add_a_worksheet.xlsx')
+workbook.SaveAs('add_a_worksheet.xlsx')
 excel.Application.Quit()
 ```
 
@@ -160,7 +160,7 @@ where the argument in the parenthesis can be a single cell name in
 double quotes (for example, "A2"), a group with two cell names
 separated by a colon and surrounded by double quotes (for example,
 "A3:B4") or a group denoted with two ``Cells()`` identifiers (for
-example, ``ws.Cells(1,1),ws.Cells(2,2)``). The ``Offset()`` method
+example, ``worksheet.Cells(1,1),worksheet.Cells(2,2)``). The ``Offset()`` method
 provides a method to address a cell based on a reference to another cell.
 
 [Go to example](https://github.com/pythonexcels/examples/blob/master/ranges_and_offsets.py)
@@ -172,14 +172,14 @@ provides a method to address a cell based on a reference to another cell.
 import win32com.client as win32
 
 excel = win32.gencache.EnsureDispatch('Excel.Application')
-wb = excel.Workbooks.Add()
-ws = wb.Worksheets("Sheet1")
-ws.Cells(1,1).Value = "Cell A1"
-ws.Cells(1,1).Offset(2,4).Value = "Cell D2"
-ws.Range("A2").Value = "Cell A2"
-ws.Range("A3:B4").Value = "A3:B4"
-ws.Range("A6:B7,A9:B10").Value = "A6:B7,A9:B10"
-wb.SaveAs('ranges_and_offsets.xlsx')
+workbook = excel.Workbooks.Add()
+worksheet = workbook.Worksheets("Sheet1")
+worksheet.Cells(1,1).Value = "Cell A1"
+worksheet.Cells(1,1).Offset(2,4).Value = "Cell D2"
+worksheet.Range("A2").Value = "Cell A2"
+worksheet.Range("A3:B4").Value = "A3:B4"
+worksheet.Range("A6:B7,A9:B10").Value = "A6:B7,A9:B10"
+workbook.SaveAs('ranges_and_offsets.xlsx')
 excel.Application.Quit()
 ```
 
@@ -200,12 +200,12 @@ and so on up to 10.
 import win32com.client as win32
 
 excel = win32.gencache.EnsureDispatch('Excel.Application')
-wb = excel.Workbooks.Add()
-ws = wb.Worksheets("Sheet1")
-ws.Range("A1").Value = 1
-ws.Range("A2").Value = 2
-ws.Range("A1:A2").AutoFill(ws.Range("A1:A10"),win32.constants.xlFillDefault)
-wb.SaveAs('autofill_cells.xlsx')
+workbook = excel.Workbooks.Add()
+worksheet = workbook.Worksheets("Sheet1")
+worksheet.Range("A1").Value = 1
+worksheet.Range("A2").Value = 2
+worksheet.Range("A1:A2").AutoFill(worksheet.Range("A1:A10"),win32.constants.xlFillDefault)
+workbook.SaveAs('autofill_cells.xlsx')
 excel.Application.Quit()
 ```
 
@@ -224,12 +224,12 @@ with a number and assigned that ``ColorIndex``.
 import win32com.client as win32
 
 excel = win32.gencache.EnsureDispatch('Excel.Application')
-wb = excel.Workbooks.Add()
-ws = wb.Worksheets("Sheet1")
+workbook = excel.Workbooks.Add()
+worksheet = workbook.Worksheets("Sheet1")
 for i in range (1,21):
-    ws.Cells(i,1).Value = i
-    ws.Cells(i,1).Interior.ColorIndex = i
-wb.SaveAs('cell_color.xlsx')
+    worksheet.Cells(i,1).Value = i
+    worksheet.Cells(i,1).Interior.ColorIndex = i
+workbook.SaveAs('cell_color.xlsx')
 excel.Application.Quit()
 ```
 
@@ -248,15 +248,15 @@ the column width by setting the ``ColumnWidth`` property. You can also use the
 import win32com.client as win32
 
 excel = win32.gencache.EnsureDispatch('Excel.Application')
-wb = excel.Workbooks.Add()
-ws = wb.Worksheets("Sheet1")
-ws.Range("A1:A10").Value = "A"
-ws.Range("B1:B10").Value = "This is a very long line of text"
-ws.Columns(1).ColumnWidth = 1
-ws.Range("B:B").ColumnWidth = 27
+workbook = excel.Workbooks.Add()
+worksheet = workbook.Worksheets("Sheet1")
+worksheet.Range("A1:A10").Value = "A"
+worksheet.Range("B1:B10").Value = "This is a very long line of text"
+worksheet.Columns(1).ColumnWidth = 1
+worksheet.Range("B:B").ColumnWidth = 27
 # Alternately, you can autofit all columns in the worksheet
-# ws.Columns.AutoFit()
-wb.SaveAs('column_widths.xlsx')
+# worksheet.Columns.AutoFit()
+workbook.SaveAs('column_widths.xlsx')
 excel.Application.Quit()
 ```
 
@@ -276,11 +276,11 @@ range A1:J10 is copied from Sheet1 to sheets Sheet2 and Sheet3.
 import win32com.client as win32
 
 excel = win32.gencache.EnsureDispatch('Excel.Application')
-wb = excel.Workbooks.Add()
-ws = wb.Worksheets("Sheet1")
-ws.Range("A1:J10").Formula = "=row()*column()"
-wb.Worksheets.FillAcrossSheets(wb.Worksheets("Sheet1").Range("A1:J10"))
-wb.SaveAs('copy_worksheet_to_worksheet.xlsx')
+workbook = excel.Workbooks.Add()
+worksheet = workbook.Worksheets("Sheet1")
+worksheet.Range("A1:J10").Formula = "=row()*column()"
+workbook.Worksheets.FillAcrossSheets(workbook.Worksheets("Sheet1").Range("A1:J10"))
+workbook.SaveAs('copy_worksheet_to_worksheet.xlsx')
 excel.Application.Quit()
 ```
 
@@ -299,18 +299,18 @@ are formatted using a monetary format.
 import win32com.client as win32
 
 excel = win32.gencache.EnsureDispatch('Excel.Application')
-wb = excel.Workbooks.Add()
-ws = wb.Worksheets("Sheet1")
+workbook = excel.Workbooks.Add()
+worksheet = workbook.Worksheets("Sheet1")
 
 for i,font in enumerate(["Arial","Courier New","Garamond","Georgia","Verdana"]):
-    ws.Range(ws.Cells(i+1,1),ws.Cells(i+1,2)).Value = [font,i+i]
-    ws.Range(ws.Cells(i+1,1),ws.Cells(i+1,2)).Font.Name = font
-    ws.Range(ws.Cells(i+1,1),ws.Cells(i+1,2)).Font.Size = 12+i
+    worksheet.Range(worksheet.Cells(i+1,1),worksheet.Cells(i+1,2)).Value = [font,i+i]
+    worksheet.Range(worksheet.Cells(i+1,1),worksheet.Cells(i+1,2)).Font.Name = font
+    worksheet.Range(worksheet.Cells(i+1,1),worksheet.Cells(i+1,2)).Font.Size = 12+i
 
-ws.Range("A1:A5").HorizontalAlignment = win32.constants.xlRight
-ws.Range("B1:B5").NumberFormat = "$###,##0.00"
-ws.Columns.AutoFit()
-wb.SaveAs('format_cells.xlsx')
+worksheet.Range("A1:A5").HorizontalAlignment = win32.constants.xlRight
+worksheet.Range("B1:B5").NumberFormat = "$###,##0.00"
+worksheet.Columns.AutoFit()
+workbook.SaveAs('format_cells.xlsx')
 excel.Application.Quit()
 ```
 
@@ -330,21 +330,21 @@ height based on cell contents.
 import win32com.client as win32
 
 excel = win32.gencache.EnsureDispatch('Excel.Application')
-wb = excel.Workbooks.Add()
-ws = wb.Worksheets("Sheet1")
-ws.Range("A1:A2").Value = "1 line"
-ws.Range("B1:B2").Value = "Two\nlines"
-ws.Range("C1:C2").Value = "Three\nlines\nhere"
-ws.Range("D1:D2").Value = "This\nis\nfour\nlines"
-ws.Rows(1).RowHeight = 60
-ws.Range("2:2").RowHeight = 120
-ws.Rows(1).VerticalAlignment = win32.constants.xlCenter
-ws.Range("2:2").VerticalAlignment = win32.constants.xlCenter
+workbook = excel.Workbooks.Add()
+worksheet = workbook.Worksheets("Sheet1")
+worksheet.Range("A1:A2").Value = "1 line"
+worksheet.Range("B1:B2").Value = "Two\nlines"
+worksheet.Range("C1:C2").Value = "Three\nlines\nhere"
+worksheet.Range("D1:D2").Value = "This\nis\nfour\nlines"
+worksheet.Rows(1).RowHeight = 60
+worksheet.Range("2:2").RowHeight = 120
+worksheet.Rows(1).VerticalAlignment = win32.constants.xlCenter
+worksheet.Range("2:2").VerticalAlignment = win32.constants.xlCenter
 
 # Alternately, you can autofit all rows in the worksheet
-# ws.Rows.AutoFit()
+# worksheet.Rows.AutoFit()
 
-wb.SaveAs('row_height.xlsx')
+workbook.SaveAs('row_height.xlsx')
 excel.Application.Quit()
 ```
 
