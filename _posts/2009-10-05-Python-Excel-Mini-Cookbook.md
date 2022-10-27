@@ -59,6 +59,7 @@ A few things to note:
 	- [Format Worksheet Cells](#format-worksheet-cells)
 	- [Setting Row Height](#setting-row-height)
 	- [Set zoom for all worksheets](#set-zoom-for-all-worksheets)
+	- [Close without saving](#close-without-saving)
 - [Source Files and Scripts](#source-files-and-scripts)
 
 
@@ -368,6 +369,26 @@ excel.ActiveWindow.Zoom = 20
 workbook.Worksheets(1).Select()
 
 workbook.SaveAs('zoom.xlsx')
+excel.Application.Quit()
+```
+
+### Close without saving
+To close **without saving** first we have to [set `Excel.Application.DisplayAlerts` to `False`](https://learn.microsoft.com/en-us/office/vba/api/excel.application.displayalerts) so that Excel won't prompt the user to save changes. Then we can call the actual `Close` method with the `SaveChanges` parameter set to `False`.
+
+```python
+#
+# Close without saving
+#
+import win32com.client as win32
+
+excel = win32.gencache.EnsureDispatch('Excel.Application')
+workbook = excel.Workbooks.Add()
+
+# To prevent the alert asking whether to save or not
+excel.DisplayAlerts = False
+workbook.Close(SaveChanges=False)
+excel.DisplayAlerts = True
+
 excel.Application.Quit()
 ```
 
