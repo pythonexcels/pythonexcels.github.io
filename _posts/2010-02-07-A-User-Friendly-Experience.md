@@ -2,7 +2,7 @@
 layout: post
 title:  A User-Friendly Experience
 date:   2010-02-07
-updated: 2019-10-03
+updated: 2022-11-01
 categories: python
 excerpt_separator: <!--end_excerpt-->
 ---
@@ -57,7 +57,7 @@ that the first argument, `sys.argv[0]`, is used for the script name.
 In the script for this example, the runexcel function is modified to
 accept `sys.argv` as an argument.
 
-```
+```python
 def runexcel(args):
     ...
     for fname in args[1:]:
@@ -84,9 +84,9 @@ support for simple message boxes using the MessageBoxA function built
 into Windows. The basic pattern for calling a message box using this
 technique is to import ctypes and call ``ctypes.windll.user32.MessageBoxA``:
 
-```
+```python
 import ctypes
-ctypes.windll.user32.MessageBoxW(None,"My message","My title",0)
+ctypes.windll.user32.MessageBoxW(None, "My message", "My title", 0)
 ```
 
 This simple code produces a message box with the text “My Message”, an
@@ -101,7 +101,7 @@ pauses until the user clicks the OK button.
 Several problems can happen when reading user spreadsheet data:
 
 * The user can forget to specify an input file.
-* The user provides the wrong spreadsheet or even a  non-spreadsheet file type.
+* The user provides the wrong spreadsheet or even a non-spreadsheet file type.
 * The spreadsheet might be corrupted.
 
 You need to bulletproof your script and guard against potential issues, both
@@ -110,7 +110,7 @@ known and unknown.
 Previous versions of the script made limited use of the try/except pattern to
 catch errors as follows:
 
-```
+```python
 try:
     wb = excel.Workbooks.Open('ABCDCatering.xls')
 except:
@@ -126,7 +126,7 @@ information back, use the traceback module and the
 ``traceback.print_exc()`` function. One usage is to call ``traceback.print_exc()`` in the
 except block like this:
 
-```
+```python
 import traceback
 try:
   a = 1/0
@@ -154,7 +154,7 @@ a message box is displayed.
 ![Error Message](/assets/images/20191003_witherror.png)
 
 The completed script is too long to reproduce here, please view the
-complete script at [https://github.com/pythonexcels/examples/blob/master/erppivotdragdrop.py](https://github.com/pythonexcels/examples/blob/master/erppivotdragdrop.py)
+complete script at [erppivotdragdrop.py](https://github.com/pythonexcels/examples/blob/master/erppivotdragdrop.py)
 
 ## Prerequisites
 
@@ -169,4 +169,4 @@ Microsoft Excel (refer to [http://office.microsoft.com/excel](http://office.micr
 Source for the program erppivotextended.py and spreadsheet file ABCDCatering.xls
 are available at [http://github.com/pythonexcels/examples](http://github.com/pythonexcels/examples)
 
-Originally posted on February 7, 2010 / Updated October 3, 2019
+Originally posted on February 7, 2010 / Updated November 1, 2022

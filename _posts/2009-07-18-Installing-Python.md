@@ -2,7 +2,7 @@
 layout: post
 title:  Installing Python
 date:   2009-07-18
-updated: 2019-09-20
+updated: 2022-10-31
 categories: python
 excerpt_separator: <!--end_excerpt-->
 ---
@@ -14,7 +14,7 @@ installation package and install onto your computer.
 
 ## Versions
 
-As of this writing, Python 3.7 is the latest version, and all examples have been
+As of this writing, Python 3.11 is the latest version, and all examples have been
 tested using Python 3.7.3. The original version of these articles was developed
 with Python 2.6, but I recommend that you use the latest Python 3 version if you
 can.
@@ -70,7 +70,7 @@ After installing Python, you can install the pywin32 module with the Python
 `pip` install program. Open a Windows Command window and install pywin32 as
 follows:
 
-```
+```shell
 C:\>pip install pywin32
 Collecting pywin32
 Downloading https://files.pythonhosted.org/packages/...
@@ -87,5 +87,5 @@ other resources. The links listed on
 starting point. You can also find a number of other resources by searching for
 “learn python”.
 
-Originally posted on July 18, 2009 / Updated September 20, 2019
+Originally posted on July 18, 2009 / Updated October 31, 2022
 

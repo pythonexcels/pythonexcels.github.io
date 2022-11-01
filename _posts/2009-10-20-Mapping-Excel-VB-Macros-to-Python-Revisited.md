@@ -2,7 +2,7 @@
 layout: post
 title:  Mapping Excel VB Macros to Python Revisited
 date:   2009-10-20
-updated: 2019-09-29
+updated: 2022-11-01
 categories: python
 excerpt_separator: <!--end_excerpt-->
 ---
@@ -21,7 +21,7 @@ conditional formatting to the numbers.
 To begin, start the IDLE tool and run the following commands to
 initialize the worksheet.
 
-```
+```python
 import win32com.client as win32
 excel = win32.gencache.EnsureDispatch('Excel.Application')
 excel.Visible = True
@@ -36,11 +36,12 @@ do this; for this exercise, you’ll pass a list of column header and
 a list of row header values to Excel. A row of data is defined by using the
 ``ws.Range().Value`` statement with a list or tuple on the right hand
 side of the equals sign. Rather than explicitly defining the list as
-`[1,2,3,4,5,6,7,8,9,10]`, you can use Python’s list comprehension with
-a `range()` statement to populate the values as follows:
+`[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]`, you can use Python’s list
+comprehension with a `range()` statement to populate the values as
+follows:
 
-```
-[i for i in range(1,11)]
+```python
+[i for i in range(1, 11)]
 ```
 
 The complete statement is ``ws.Range("B2:K2").Value =
@@ -51,9 +52,9 @@ the flat list into a list of tuples. The complete statement is
 ``ws.Range("B2:B11").Value = zip([i for i in range(1,11)])``. The
 statements for completing the column and row headers are shown below.
 
-```
-ws.Range("B2:K2").Value = [i for i in range(1,11)]
-ws.Range("B2:B11").Value = list(zip([i for i in range(1,11)]))
+```python
+ws.Range("B2:K2").Value = [i for i in range(1, 11)]
+ws.Range("B2:B11").Value = list(zip([i for i in range(1, 11)]))
 ```
 
 At this point, your spreadsheet contains the column and row headers as follows:
@@ -75,7 +76,7 @@ the remaining rows. Since this was demonstrated in the last post,
 please refer to that post if you need more information. The equivalent
 Python code to implement the autofill is shown below.
 
-```
+```python
 ws.Range("C3").Formula = "=$B3*C$2"
 ws.Range("C3:C3").Select()
 excel.Selection.AutoFill(ws.Range("C3:K3"),win32.constants.xlFillDefault)
@@ -101,7 +102,7 @@ use the formula ``=INT(RAND()*100)``. The ``ws.Range().Formula``
 method can be used to fill a range with the same formula. The
 following code creates the table of random integers.
 
-```
+```python
 ws.Range("B13:K22").Formula = "=INT(RAND()*100)"
 ```
 
@@ -141,7 +142,7 @@ To continue, open the macro just created by selecting Macros from the Developer
 tab, select the name of the macro you just captured and click Edit. The macro
 should look something like this:
 
-```
+```vbnet
 Sub Macro1()
 '
 ' Macro1 Macro
@@ -196,7 +197,7 @@ The three ``With`` blocks in this macro need to be expanded, which can
 be done with temporary variables or by copying the statement following
 the ``With`` keyword. For example, the first ``With`` block:
 
-```
+```vbnet
 With Selection.FormatConditions(1).ColorScaleCriteria(1).FormatColor
     .Color = 13011546
     .TintAndShade = 0
@@ -205,23 +206,31 @@ End With
 
 can be written in Python as
 
-```
+```python
 excel.Selection.FormatConditions(1).ColorScaleCriteria(1).FormatColor.Color = 13011546
 excel.Selection.FormatConditions(1).ColorScaleCriteria(1).FormatColor.TintAndShade = 0
 ```
 
 or by using a temporary variable as
 
-```
+```python
 x = excel.Selection.FormatConditions(1).ColorScaleCriteria(1).FormatColor
 x.Color = 13011546
 x.FormatColor.TintAndShade = 0
 ```
 
+or by using `with` as
+
+```python
+with excel.Selection.FormatConditions(1).ColorScaleCriteria(1).FormatColor as fc:
+    fc.Color = 13011546
+    fc.FormatColor.TintAndShade = 0
+```
+
 Temporary variables were created to make the script more concise. In
-particular, the statement ``[csc1,csc2,csc3] =
+particular, the statement ``[csc1, csc2, csc3] =
 [excel.Selection.FormatConditions(1).ColorScaleCriteria(n) for n in
-range(1,4)]`` was used to create three temporary variables for the
+range(1, 4)]`` was used to create three temporary variables for the
 three `ColorScaleCriteria` methods.
 
 To save the spreadsheet and close Excel, use the ``SaveAs`` and
@@ -232,9 +241,9 @@ Here is the complete conditionalformatting.py script. The line
 developing the script, you typically want Excel to run invisibly in
 the background.
 
-[https://github.com/pythonexcels/examples/blob/master/conditionalformatting.py](https://github.com/pythonexcels/examples/blob/master/conditionalformatting.py)
+[conditionalformatting.py](https://github.com/pythonexcels/examples/blob/master/conditionalformatting.py)
 
-```
+```python
 #
 # conditionalformatting.py
 # Create two tables and apply conditional formatting
@@ -244,19 +253,19 @@ excel = win32.gencache.EnsureDispatch('Excel.Application')
 # excel.Visible = True
 wb = excel.Workbooks.Add()
 ws = wb.Worksheets('Sheet1')
-ws.Range("B2:K2").Value = [i for i in range(1,11)]
-ws.Range("B2:B11").Value = list(zip([i for i in range(1,11)]))
+ws.Range("B2:K2").Value = [i for i in range(1, 11)]
+ws.Range("B2:B11").Value = list(zip([i for i in range(1, 11)]))
 ws.Range("C3").Formula = "=$B3*C$2"
 ws.Range("C3:C3").Select()
-excel.Selection.AutoFill(ws.Range("C3:K3"),win32.constants.xlFillDefault)
+excel.Selection.AutoFill(ws.Range("C3:K3"), win32.constants.xlFillDefault)
 ws.Range("C3:K3").Select()
-excel.Selection.AutoFill(ws.Range("C3:K11"),win32.constants.xlFillDefault)
+excel.Selection.AutoFill(ws.Range("C3:K11"), win32.constants.xlFillDefault)
 # Add the table of random integers
 ws.Range("B13:K22").Formula = "=INT(RAND()*100)"
 ws.Range("B2:K22").Select()
-excel.Selection.FormatConditions.AddColorScale(ColorScaleType = 3)
+excel.Selection.FormatConditions.AddColorScale(ColorScaleType=3)
 excel.Selection.FormatConditions(excel.Selection.FormatConditions.Count).SetFirstPriority()
-[csc1,csc2,csc3] = [excel.Selection.FormatConditions(1).ColorScaleCriteria(n) for n in range(1,4)]
+[csc1, csc2, csc3] = [excel.Selection.FormatConditions(1).ColorScaleCriteria(n) for n in range(1, 4)]
 csc1.Type = win32.constants.xlConditionValueLowestValue
 csc1.FormatColor.Color = 13011546
 csc1.FormatColor.TintAndShade = 0
@@ -285,4 +294,4 @@ Microsoft Excel (refer to [http://office.microsoft.com/excel](http://office.micr
 
 Source for the program conditionalformatting.py script is available at [http://github.com/pythonexcels/examples](http://github.com/pythonexcels/examples)
 
-Originally Posted on October 20, 2009 / Updated September 29, 2019
+Originally Posted on October 20, 2009 / Updated November 1, 2022

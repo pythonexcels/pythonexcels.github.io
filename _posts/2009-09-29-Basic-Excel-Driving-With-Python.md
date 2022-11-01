@@ -2,7 +2,7 @@
 layout: post
 title:  Basic Excel Driving with Python
 date:   2009-09-29
-updated: 2019-09-20
+updated: 2022-11-01
 categories: python
 excerpt_separator: <!--end_excerpt-->
 ---
@@ -32,27 +32,28 @@ for more information on installing both Python and pywin32.
 Here is the complete script we’ll be entering using IDLE, the Python
 interactive development tool. Feel free to copy and paste as you work
 through this exercise. You can download this script from GitHub at
-[https://github.com/pythonexcels/examples/blob/master/driving.py](https://github.com/pythonexcels/examples/blob/master/driving.py)
+[driving.py](https://github.com/pythonexcels/examples/blob/master/driving.py)
 
-```
+```python
 #
 # driving.py
 #
 import win32com.client as win32
+
 excel = win32.gencache.EnsureDispatch('Excel.Application')
 excel.Visible = True
 wb = excel.Workbooks.Add()
 ws = wb.Worksheets('Sheet1')
 ws.Name = 'Built with Python'
-ws.Cells(1,1).Value = 'Hello Excel'
-print (ws.Cells(1,1).Value)
-for i in range(1,5):
-    ws.Cells(2,i).Value = i  # Don't do this
-ws.Range(ws.Cells(3,1),ws.Cells(3,4)).Value = [5,6,7,8]
-ws.Range("A4:D4").Value = [i for i in range(9,13)]
-ws.Cells(5,4).Formula = '=SUM(A2:D4)'
-ws.Cells(5,4).Font.Size = 16
-ws.Cells(5,4).Font.Bold = True
+ws.Cells(1, 1).Value = 'Hello Excel'
+print(ws.Cells(1, 1).Value)
+for i in range(1, 5):
+    ws.Cells(2, i).Value = i  # Don't do this
+ws.Range(ws.Cells(3, 1), ws.Cells(3, 4)).Value = [5, 6, 7, 8]
+ws.Range("A4:D4").Value = [i for i in range(9, 13)]
+ws.Cells(5, 4).Formula = '=SUM(A2:D4)'
+ws.Cells(5, 4).Font.Size = 16
+ws.Cells(5, 4).Font.Bold = True
 ```
 
 What follows is a step-by-step guide to entering this script and
@@ -68,7 +69,8 @@ monitoring the result.
     interactive interface to enter, run and save Python programs. IDLE
     isn’t strictly necessary for this exercise; you could use any
     shell command window, or even another IDE (Integrated Development
-    Environment) such as [PyCharm](https://jetbrains.com/pycharm).
+    Environment) such as [PyCharm](https://jetbrains.com/pycharm) or
+    [Visual Studio Code](https://code.visualstudio.com).
 
 2. Import the win32 module
 
@@ -160,7 +162,7 @@ monitoring the result.
     extracting blocks of data: the ``Range().Value`` pattern. With
     this construct, you can efficiently transfer one- or
     two-dimensional blocks of data. In the first example, cells (3,1)
-    through (3,4) are assigned to the list [5,6,7,8]. The next line
+    through (3,4) are assigned to the list [5, 6, 7, 8]. The next line
     uses the Excel-style cell address specifier “A4:D4” to assign the
     results of the operation ``[i for i in range(9,13)]``. In some
     cases, it may be more intuitive to use the Excel-style naming.
@@ -205,8 +207,8 @@ open Excel spreadsheet just as shown in the last screenshot above.
 
 ## Source Files and Scripts
 
-Source for the program and data text file are available at
-[http://github.com/pythonexcels/examples](http://github.com/pythonexcels/examples)
+Source for the program and data text file are available on
+[GitHub](http://github.com/pythonexcels/examples)
 
 ## References
 
@@ -225,4 +227,4 @@ Excel using Win32 COM
 
 Stack Overflow is a great resource for getting questions answered on a variety of programming topics, including Python
 
-Originally posted on September 29, 2009 / Updated September 20, 2019
+Originally posted on September 29, 2009 / Updated November 1, 2022

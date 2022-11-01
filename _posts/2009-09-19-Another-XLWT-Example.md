@@ -2,7 +2,7 @@
 layout: post
 title:  Another XLWT Example
 date:   2009-09-19
-updated: 2019-09-20
+updated: 2022-11-01
 categories: python
 excerpt_separator: <!--end_excerpt-->
 ---
@@ -37,12 +37,11 @@ continuously updated.
 Here’s the script that performs these operations, tested on both
 Python 2.7.11 and Python 3.7.3:
 
-```
+```python
 #
 # xlwt_bostonhousing.py
 #
 import sys
-# from urllib2 import urlopen
 from xlwt import Workbook, easyxf, Formula
 
 def doxl():
@@ -62,7 +61,7 @@ def doxl():
     try:
         fp = urlopen(URL)
     except:
-        print ('Failed to download %s' % URL)
+        print('Failed to download %s' % URL)
         sys.exit(1)
     lines = fp.readlines()
 
@@ -75,21 +74,21 @@ def doxl():
         if len(tokens) != 21:
             continue
         for c,t in enumerate(tokens):
-            for dtype in (int,float):
+            for dtype in (int, float):
                 try:
                     t = dtype(t)
                 except:
                     pass
                 else:
                     break
-            ws.write(r,c+1,t)
+            ws.write(r, c+1, t)
         if r == 0:
             hdr = tokens
-            ws.write(r,0,'MAPLINK')
+            ws.write(r, 0, 'MAPLINK')
         else:
-            d = dict(zip(hdr,tokens))
-            link = 'HYPERLINK("http://maps.google.com/maps?q=%s,+%s+(Observation+%s)&hl=en&ie=UTF8&z=14&iwloc=A";"MAP")' % (d['LAT'],d['LON'],d['OBS.'])
-            ws.write(r,0,Formula(link),ulstyle)
+            d = dict(zip(hdr, tokens))
+            link = 'HYPERLINK("http://maps.google.com/maps?q=%s,+%s+(Observation+%s)&hl=en&ie=UTF8&z=14&iwloc=A";"MAP")' % (d['LAT'], d['LON'], d['OBS.'])
+            ws.write(r, 0, Formula(link), ulstyle)
 
         r += 1
     wb.save('bostonhousing.xls')
@@ -104,7 +103,7 @@ As in the [previous post]({% post_url
 must have xlwt installed. See the Installation section of that post
 for instructions on installing xlwt. Let’s dive into the script.
 
-```
+```python
 URL = 'http://lib.stat.cmu.edu/datasets/boston_corrected.txt'
 try:
     # For Python 3.0 and later
@@ -128,7 +127,7 @@ file are read into <em>lines</em> as a list of strings. If
 boston_corrected.txt cannot be read, a message is printed and the
 script exits.
 
-```
+```python
 wb = Workbook()
 ws = wb.add_sheet('Housing Data')
 ulstyle = easyxf('font: underline single')
@@ -143,20 +142,20 @@ line, the variable r acts as a row counter.
 
 The for loop below examines each row of data:
 
-```
+```python
 for line in lines:
     tokens = line.decode('cp1250').strip().split('\t')
     if len(tokens) != 21:
         continue
-    for c,t in enumerate(tokens):
-        for dtype in (int,float):
+    for c, t in enumerate(tokens):
+        for dtype in (int, float):
             try:
                 t = dtype(t)
             except:
                 pass
             else:
                 break
-        ws.write(r,c+1,t)
+        ws.write(r, c+1, t)
 ```
 
 Each line is “stripped” (leading and trailing white space characters
@@ -177,14 +176,14 @@ setting is written to the spreadsheet using the ws.write statement.
 The next section builds the hyperlink to a Google Map using the
 latitude and longitude information within the input data.
 
-```
+```python
     if r == 0:
         hdr = tokens
-        ws.write(r,0,'MAPLINK')
+        ws.write(r, 0, 'MAPLINK')
     else:
-        d = dict(zip(hdr,tokens))
-        link = 'HYPERLINK("http://maps.google.com/maps?q=%s,+%s+(Observation+%s)&hl=en&ie=UTF8&z=14&iwloc=A";"MAP")' % (d['LAT'],d['LON'],d['OBS.'])
-        ws.write(r,0,Formula(link),ulstyle)
+        d = dict(zip(hdr, tokens))
+        link = 'HYPERLINK("http://maps.google.com/maps?q=%s,+%s+(Observation+%s)&hl=en&ie=UTF8&z=14&iwloc=A";"MAP")' % (d['LAT'], d['LON'], d['OBS.'])
+        ws.write(r, 0, Formula(link), ulstyle)
 
     r += 1
 wb.save('bostonhousing.xls')
@@ -244,4 +243,4 @@ Excel files in the Python programming language.
 Google group for questions on xlrd, xlwt, xlutils and general questions on
 interfacing to Excel with Python
 
-Originally posted on September 19, 2009 / Updated September 20, 2019
+Originally posted on September 19, 2009 / Updated November 1, 2022
