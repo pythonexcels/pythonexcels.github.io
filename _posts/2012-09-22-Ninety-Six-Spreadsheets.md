@@ -2,7 +2,7 @@
 layout: post
 title:  Ninety Six Spreadsheets
 date:   2012-09-22
-updated: 2019-10-05
+updated: 2022-11-01
 categories: python
 excerpt_separator: <!--end_excerpt-->
 ---
@@ -39,7 +39,7 @@ The brief example on Github contains two spreadsheets: 2012-01-01-Payroll.xlsx a
 
 The completed script is available at [https://github.com/pythonexcels/examples/blob/master/payrates.py](https://github.com/pythonexcels/examples/blob/master/payrates.py). The sample spreadsheets are available at [https://github.com/pythonexcels/examples/raw/master/Payroll/2012-01-01-Payroll.xlsx](https://github.com/pythonexcels/examples/raw/master/Payroll/2012-01-01-Payroll.xlsx) and [https://github.com/pythonexcels/examples/raw/master/Payroll/2012-01-15-Payroll.xlsx](https://github.com/pythonexcels/examples/raw/master/Payroll/2012-01-15-Payroll.xlsx) if you'd like to test the script yourself.
 
-```
+```python
 #
 # payrates.py
 # Report payrates for two employees across multiple spreadsheets
@@ -55,7 +55,7 @@ steve = []
 jeff = []
 cwd = os.getcwd()
 excel = win32.gencache.EnsureDispatch('Excel.Application')
-fpjeffsteve = open('jeffsteve.csv','w')
+fpjeffsteve = open('jeffsteve.csv', 'w')
 for xlsxfile in xlxsfiles:
     wb = excel.Workbooks.Open(cwd+"\\"+xlsxfile)
     try:
@@ -83,9 +83,9 @@ for xlsxfile in xlxsfiles:
 
 fpjeffsteve.write ("File,Jeff,Steve\n")
 for i in range(len(xlxsfiles)):
-    fpjeffsteve.write ("%s,%0.2f,%0.2f\n"%(xlxsfiles[i],jeff[i],steve[i]))
+    fpjeffsteve.write ("%s,%0.2f,%0.2f\n"%(xlxsfiles[i], jeff[i], steve[i]))
 print ("Wrote jeffsteve.csv")
 excel.Application.Quit()
 ```
 
-Originally Posted on September 22, 2012 / Updated October 5, 2019
+Originally Posted on September 22, 2012 / Updated November 1, 2022

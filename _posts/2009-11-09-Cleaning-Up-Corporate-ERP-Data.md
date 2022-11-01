@@ -2,7 +2,7 @@
 layout: post
 title:  Cleaning Up Corporate ERP Data
 date:   2009-11-09
-updated: 2019-09-30
+updated: 2022-11-01
 categories: python
 excerpt_separator: <!--end_excerpt-->
 ---
@@ -61,7 +61,7 @@ start Excel. If you have questions on this, please refer to
 [Basic Excel Driving]({% post_url 2009-09-29-Basic-Excel-Driving-With-Python %}) and
 [Python Excel Mini Cookbook]({% post_url 2009-10-05-Python-Excel-Mini-Cookbook %}).
 
-```
+```python
 #
 # erpdata.py: Load raw EPR data and clean up header info
 #
@@ -77,7 +77,7 @@ handling. The try/except clause attempts to open the file with the
 missing or some other problem occurred. Lastly, the variable ws is
 set to the spreadsheet containing the data.
 
-```
+```python
 try:
     wb = excel.Workbooks.Open('ABCDCatering.xls')
 except:
@@ -91,7 +91,7 @@ way to load the entire spreadsheet into Python is the ``UsedRange``
 method. The following command retrieves the data in the Sheet1
 worksheet and copies it into a tuple named xldata.
 
-```
+```python
 xldata = ws.UsedRange.Value
 ```
 
@@ -116,7 +116,7 @@ the last field. Note that this code <em>assumes</em> that the actual
 data in the table always contains complete records; note that you
 should always understand the characteristics of your data.
 
-```
+```python
 newdata = []
 for row in xldata:
     if row[-1] is not None and len(row) == 13:
@@ -142,7 +142,7 @@ conversion. A more complex lookup could be used as well, but the
 simple algorithm described here will scale if new fields are added to
 the report.
 
-```
+```python
 for i,field in enumerate(newdata[0]):
     if field is None:
         newdata[0][i] = lasthdr + " Name"
@@ -155,21 +155,22 @@ compare the original data set and the new data set, create a new sheet
 in the workbook, write the data to the new sheet, and autofit the
 columns.
 
-```
+```python
 wsnew = wb.Sheets.Add()
-wsnew.Range(wsnew.Cells(1,1),wsnew.Cells(len(newdata),len(newdata[0]))).Value = newdata
+wsnew.Range(wsnew.Cells(1, 1), wsnew.Cells(len(newdata), len(newdata[0]))).Value = newdata
 wsnew.Columns.AutoFit()
 ```
 
 The last step is to save the worksheet to a new file and quit Excel.
 
-```
-wb.SaveAs('newABCDCatering.xlsx',win32.constants.xlOpenXMLWorkbook)
+```python
+wb.SaveAs('newABCDCatering.xlsx', win32.constants.xlOpenXMLWorkbook)
 excel.Application.Quit()
 ```
 
-If the file newABCDCatering.xlsx already exists in My Documents, you
-will see the following dialog box when you run the script.
+If the file newABCDCatering.xlsx already exists in My Documents or
+Documents, you will see the following dialog box when you run the
+script.
 
 ![existspopup](/assets/images/20190930_abcd_file_exists.png)
 
@@ -187,18 +188,19 @@ The new spreadsheet is ready for use in a pivot table, which will be covered in
 the next post. Here is the complete script, also available at [https://github.com/pythonexcels/examples/blob/master/erpdata.py](https://github.com/pythonexcels/examples/blob/master/erpdata.py)
 
 
-```
+```python
 #
 # erpdata.py: Load raw EPR data and clean up header info
 #
 import win32com.client as win32
 import sys
+
 excel = win32.gencache.EnsureDispatch('Excel.Application')
-#excel.Visible = True
+# excel.Visible = True
 try:
     wb = excel.Workbooks.Open('ABCDCatering.xls')
 except:
-    print ("Failed to open spreadsheet ABCDCatering.xls")
+    print("Failed to open spreadsheet ABCDCatering.xls")
     sys.exit(1)
 ws = wb.Sheets('Sheet1')
 xldata = ws.UsedRange.Value
@@ -207,15 +209,15 @@ for row in xldata:
     if len(row) == 13 and row[-1] is not None:
         newdata.append(list(row))
 lasthdr = "Col A"
-for i,field in enumerate(newdata[0]):
+for i, field in enumerate(newdata[0]):
     if field is None:
         newdata[0][i] = lasthdr + " Name"
     else:
         lasthdr = newdata[0][i]
 wsnew = wb.Sheets.Add()
-wsnew.Range(wsnew.Cells(1,1),wsnew.Cells(len(newdata),len(newdata[0]))).Value = newdata
+wsnew.Range(wsnew.Cells(1, 1), wsnew.Cells(len(newdata), len(newdata[0]))).Value = newdata
 wsnew.Columns.AutoFit()
-wb.SaveAs('newABCDCatering.xlsx',win32.constants.xlOpenXMLWorkbook)
+wb.SaveAs('newABCDCatering.xlsx', win32.constants.xlOpenXMLWorkbook)
 excel.Application.Quit()
 ```
 
@@ -232,4 +234,4 @@ Microsoft Excel (refer to [http://office.microsoft.com/excel](http://office.micr
 Source for the program erpdata.py and spreadsheet file ABCDCatering.xls are
 available at [http://github.com/pythonexcels/examples](http://github.com/pythonexcels/examples)
 
-Originally posted on November 2, 2009 / Updated September 30, 2019
+Originally posted on November 2, 2009 / Updated November 1, 2022

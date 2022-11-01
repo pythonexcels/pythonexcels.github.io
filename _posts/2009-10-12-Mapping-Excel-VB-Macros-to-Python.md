@@ -2,7 +2,7 @@
 layout: post
 title:  Mapping Excel VB Macros to Python
 date:   2009-10-12
-updated: 2019-09-27
+updated: 2022-11-01
 categories: python
 excerpt_separator: <!--end_excerpt-->
 ---
@@ -19,10 +19,10 @@ Python; let me share the technique with you.
 
 In this post, I’ll capture a simple set of operations as a Visual Basic
 macro, examine the macro, and port it to Python. I’m using the
-MultiplicationTable.xlsx file as a starting point, it’s a simple 10×10
+MultiplicationTable.xlsx file as a starting point; it’s a simple 10×10
 multiplication table that will be expanded and reformatted. You can create this
 table yourself or download the file from
-[https://github.com/pythonexcels/examples/raw/master/MultiplicationTable.xlsx](https://github.com/pythonexcels/examples/raw/master/MultiplicationTable.xlsx)
+[MultiplicationTable.xlsx](https://github.com/pythonexcels/examples/raw/master/MultiplicationTable.xlsx)
 
 # Enabling the Developer Tab
 
@@ -105,7 +105,7 @@ The tool opens your macro in the Microsoft Visual Basic Integrated
 Development Environment (IDE). Your macro should look similar to the
 following macro:
 
-```
+```vbnet
 Sub Macro1()
 '
 ' Macro1 Macro
@@ -135,9 +135,9 @@ To get started, open the Python Integrated Development Environment
 (IDLE), and open the spreadsheet with the original 10×10
 multiplication table by entering the following four commands. Make
 sure the “MultiplicationTable.xlsx” spreadsheet is in your My
-Documents folder.
+Documents or Documents folder.
 
-```
+```python
 import win32com.client as win32
 excel = win32.gencache.EnsureDispatch('Excel.Application')
 wb = excel.Workbooks.Open('MultiplicationTable.xlsx')
@@ -183,7 +183,7 @@ has been selected as shown in the following figure.
 
 ![wsb11k11select](/assets/images/20190927_b11k11select.png)
 
- The next task is to autofill the five rows below the existing table
+The next task is to autofill the five rows below the existing table
 by using the ``Selection.AutoFillDestination:=Range("B11:K16"),
 Type:=xlFillDefault`` VB command. `Selection` is a method at the Excel
 application level, so you need to prefix the command with ``excel.``
@@ -256,22 +256,23 @@ Excel, use the `SaveAs` and `Quit` methods as shown below.
 ![idlesavequit](/assets/images/20190927_idlesavequit.png)
 
 For your reference, here is the complete Python script, also available at
-[https://github.com/pythonexcels/examples/raw/master/make15x15.py](https://github.com/pythonexcels/examples/raw/master/make15x15.py)
+[make15x15.py](https://github.com/pythonexcels/examples/raw/master/make15x15.py)
 
-```
+```python
 #
 # make15x15.py
 # Expand an existing 10x10 multiplication table and resize columns
 #
 import win32com.client as win32
+
 excel = win32.gencache.EnsureDispatch('Excel.Application')
 wb = excel.Workbooks.Open('MultiplicationTable.xlsx')
 excel.Visible = True
 ws = wb.Worksheets('Sheet1')
 ws.Range("B11:K11").Select()
-excel.Selection.AutoFill(ws.Range("B11:K16"),win32.constants.xlFillDefault)
+excel.Selection.AutoFill(ws.Range("B11:K16"), win32.constants.xlFillDefault)
 ws.Range("K2:K16").Select()
-excel.Selection.AutoFill(ws.Range("K2:P16"),win32.constants.xlFillDefault)
+excel.Selection.AutoFill(ws.Range("K2:P16"), win32.constants.xlFillDefault)
 ws.Columns("B:P").Select()
 excel.Selection.ColumnWidth = 4
 wb.SaveAs('NewMultiplicationTable.xlsx')
@@ -310,9 +311,9 @@ for the reader to research those commands.
 |                                                                         | `ws = wb.Worksheets(‘Sheet1’)`                                                |
 | `Range("B11:K11").Select`                                               | `ws.Range("B11:K11").Select()`                                                |
 | `Range("B11:K11").Select`                                               | `ws.Range("B11:K11").Select()`                                                |
-| `Selection.AutoFill Destination:=Range("B11:K16"), Type:=xlFillDefault` | `excel.Selection.AutoFill(ws.Range("B11:K16"),win32.constants.xlFillDefault)` |
+| `Selection.AutoFill Destination:=Range("B11:K16"), Type:=xlFillDefault` | `excel.Selection.AutoFill(ws.Range("B11:K16"), win32.constants.xlFillDefault)`|
 | `Range("K2:K16").Select`                                                | `ws.Range("K2:K16").Select()`                                                 |
-| `Selection.AutoFill Destination:=Range("K2:P16"), Type:=xlFillDefault`  | `excel.Selection.AutoFill(ws.Range("K2:P16"),win32.constants.xlFillDefault)`  |
+| `Selection.AutoFill Destination:=Range("K2:P16"), Type:=xlFillDefault`  | `excel.Selection.AutoFill(ws.Range("K2:P16"), win32.constants.xlFillDefault)` |
 | `Columns("B:P").Select`                                                 | `ws.Columns("B:P").Select()`                                                  |
 | `Selection.ColumnWidth = 4`                                             | `excel.Selection.ColumnWidth = 4`                                             |
 |                                                                         | `excel.Application.Quit()`                                                    |
@@ -330,4 +331,4 @@ Microsoft Excel (refer to [http://office.microsoft.com/excel](http://office.micr
 Source for the program make15x15.py and data text file are available
 at [http://github.com/pythonexcels/examples](http://github.com/pythonexcels/examples)
 
-Originally posted on October 12, 2009 / Updated September 27, 2019
+Originally posted on October 12, 2009 / Updated November 1, 2022

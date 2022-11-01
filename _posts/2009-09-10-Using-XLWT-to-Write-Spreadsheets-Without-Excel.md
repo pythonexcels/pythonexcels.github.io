@@ -2,7 +2,7 @@
 layout: post
 title:  Using XLWT to Write Spreadsheets Without Excel
 date:   2009-09-10
-updated: 2019-09-20
+updated: 2022-11-01
 categories: python
 excerpt_separator: <!--end_excerpt-->
 ---
@@ -29,7 +29,7 @@ For Python versions 2.6 and later, you can install xlwt with the `pip`
 utility. Open a Windows command window and run `pip install xlwt` as
 follows:
 
-```
+```shell
 C:\> python --version
 Python 3.7.3
 
@@ -82,12 +82,13 @@ widest data
 Since there are no charts, pivot tables, or other fancy formatting
 needed, xlwt is perfect for the job. Here is the script that performs
 the conversion, available at
-[https://github.com/pythonexcels/xlwt/blob/master/xlwt_hospdata.py](https://github.com/pythonexcels/xlwt/blob/master/xlwt_hospdata.py)
+[xlwt_hospdata.py](https://github.com/pythonexcels/xlwt/blob/master/xlwt_hospdata.py)
 
-```
+```python
 import sys
 import re
 from xlwt import Workbook, easyxf
+
 
 def doxl():
     '''Read raw account number and name strings, separate the data and
@@ -97,7 +98,7 @@ def doxl():
     try:
         fp = open("hospdata.txt")
     except:
-        print ('Failed to open hospdata.txt')
+        print('Failed to open hospdata.txt')
         sys.exit(1)
     lines = fp.readlines()
 
@@ -105,24 +106,25 @@ def doxl():
     wb = Workbook()
     wsraw = wb.add_sheet('Raw Data')
     ws = wb.add_sheet('Account List')
-    ws.write(0,0,'Account Number')
-    ws.write(0,1,'Account Name')
+    ws.write(0, 0, 'Account Number')
+    ws.write(0, 1, 'Account Name')
     ws.col(0).width = len('Account Number') * 256
-    ws.col(1).width = max([len(l) for l in lines]) * 256
+    ws.col(1).width = max([len(line) for line in lines]) * 256
     r = 1
 
     for line in lines:
-        wsraw.write(r,0,line.strip())
+        wsraw.write(r, 0, line.strip())
         m = nameandnum.match(line)
         if m:
-            ws.write(r,0,int(m.group(1)))
-            ws.write(r,1,' '.join([w.capitalize() for w in m.group(2).split()]))
+            ws.write(r, 0, int(m.group(1)))
+            ws.write(r, 1, ' '.join([w.capitalize() for w in m.group(2).split()]))
         else:
-            ws.write(r,0,99999,easyxf('pattern: pattern solid, fore_colour red;'))
-            ws.write(r,1,' '.join([w.capitalize() for w in line.split()]))
+            ws.write(r, 0, 99999, easyxf('pattern: pattern solid, fore_colour red;'))
+            ws.write(r, 1, ' '.join([w.capitalize() for w in line.split()]))
         r += 1
     wb.save('accounts.xls')
-    print ('Wrote accounts.xls')
+    print('Wrote accounts.xls')
+
 
 if __name__ == "__main__":
     doxl()
@@ -134,11 +136,11 @@ important bits in the script above.
 
 The following lines 12-17:
 
-```
+```python
     try:
         fp = open("hospdata.txt")
     except:
-        print ('Failed to open hospdata.txt')
+        print('Failed to open hospdata.txt')
         sys.exit(1)
     lines = fp.readlines()
 ```
@@ -146,7 +148,7 @@ The following lines 12-17:
 attempt to open the file hospdata.txt. If successful, the file contents are read
 into “lines” as a list of strings. Next, line 19
 
-```
+```python
 nameandnum = re.compile(r'(\d+)\s*(.*)\s*')
 ```
 
@@ -158,14 +160,14 @@ attempt a match on each line in the input file.
 
 The next section (lines 20-26) creates a new workbook with two worksheets:
 
-```
+```python
 wb = Workbook()
 wsraw = wb.add_sheet('Raw Data')
 ws = wb.add_sheet('Account List')
 ws.write(0,0,'Account Number')
 ws.write(0,1,'Account Name')
 ws.col(0).width = len('Account Number') * 256
-ws.col(1).width = max([len(l) for l in lines]) * 256
+ws.col(1).width = max([len(line) for line in lines]) * 256
 ```
 
 The two worksheets are named “Raw Data” and “Account List” and are
@@ -182,24 +184,24 @@ than the actual data.
 The next section (lines 29 through 37) iterates over each line of the
 text file:
 
-```
+```python
 for line in lines:
     wsraw.write(r,0,line.strip())
     m = nameandnum.match(line)
     if m:
-        ws.write(r,0,int(m.group(1)))
-        ws.write(r,1,' '.join([w.capitalize() for w in m.group(2).split()]))
+        ws.write(r, 0, int(m.group(1)))
+        ws.write(r, 1, ' '.join([w.capitalize() for w in m.group(2).split()]))
     else:
-        ws.write(r,0,99999,easyxf('pattern: pattern solid, fore_colour red;'))
-        ws.write(r,1,' '.join([w.capitalize() for w in line.split()]))
+        ws.write(r, 0, 99999, easyxf('pattern: pattern solid, fore_colour red;'))
+        ws.write(r, 1, ' '.join([w.capitalize() for w in line.split()]))
 ```
 
 The raw data is written to the Raw Data sheet, then the line is matched against
 the regular expression. If the match is successful, the number part is written
 to the first column, and the text is written to the second column. The following
-statement in line 34:
+statement in line 35:
 
-```
+```python
 ' '.join([w.capitalize() for w in m.group(2).split()])
 ```
 
@@ -208,7 +210,7 @@ each word, then reassembles the string with a space between each word.
 If you wanted to insert the account name string as-is, you would
 simply replace the statement above with the following:
 
-```
+```python
 m.group(2)
 ```
 
@@ -221,9 +223,9 @@ text for quick visual scanning.
 After all input lines are processed, the accounts.xls file is written
 and the following message is printed by the following lines:
 
-```
+```python
 wb.save('accounts.xls')
-print 'Wrote accounts.xls'
+print('Wrote accounts.xls')
 ```
 
 The completed accounts.xls spreadsheet looks like this, with account
@@ -246,11 +248,11 @@ Source for the program and data text file are available at
 ## References
 
 [http://www.python-excel.org](http://www.python-excel.org) contains pointers to
-the best information available about working with Excel files in the Python
+some older information available about working with Excel files in the Python
 programming language.
 
 [http://groups.google.com/group/python-excel](http://groups.google.com/group/python-excel)
 is the Google group for questions on xlrd, xlwt, xlutils and general questions
 on interfacing to Excel with Python
 
-Originally posted on September 10, 2009 / Updated September 20, 2019
+Originally posted on September 10, 2009 / Updated November 1, 2022
