@@ -86,6 +86,7 @@ other resources. The links listed on
 [https://www.python.org/doc](https://www.python.org/doc) are an excellent
 starting point. You can also find a number of other resources by searching for
 “learn python”.
+* [Learn Python programming](https://www.scaler.com/topics/python/)
 
 Originally posted on July 18, 2009 / Updated October 31, 2022
 
